@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wjb.mapper.AuctionMapper" >
+  <resultMap id="BaseResultMap" type="com.g7.entity.Auction" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="acution_time" property="acutionTime" jdbcType="TIMESTAMP" />
+    <result column="auction_date" property="auctionDate" jdbcType="DATE" />
+    <result column="auction_duration" property="auctionDuration" jdbcType="TIMESTAMP" />
+    <result column="starting_bid" property="startingBid" jdbcType="DECIMAL" />
+    <result column="highest_bid" property="highestBid" jdbcType="DECIMAL" />
+    <result column="auction_title" property="auctionTitle" jdbcType="VARCHAR" />
+    <result column="auction_detail" property="auctionDetail" jdbcType="VARCHAR" />
+    <result column="auction_announcement" property="auctionAnnouncement" jdbcType="VARCHAR" />
+    <result column="real_estate_id" property="realEstateId" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>
