@@ -4,12 +4,10 @@ import com.g7.common.JSONResult;
 import com.g7.entity.Account;
 import com.g7.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/account")
 public class AccountController {
 
     @Autowired

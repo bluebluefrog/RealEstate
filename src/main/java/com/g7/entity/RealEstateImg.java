@@ -1,6 +1,8 @@
 package com.g7.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "real_estate_img")
@@ -22,6 +24,8 @@ public class RealEstateImg {
 
     @Column(name = "updated_time")
     private Date updatedTime;
+
+    private String url;
 
     /**
      * @return id
@@ -105,5 +109,19 @@ public class RealEstateImg {
      */
     public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    /**
+     * @return url
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @param url
+     */
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

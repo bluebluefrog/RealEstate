@@ -76,7 +76,6 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
-    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public Account login(String username, String password) {
         //select *

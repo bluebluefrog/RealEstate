@@ -8,7 +8,6 @@ spring:
 
 
 # mybatis config
-
 mybatis:
     type-aliases-package: com.g7.entity
     mapper-locations: classpath:mappers/*.xml
