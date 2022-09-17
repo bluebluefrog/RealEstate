@@ -1,17 +1,9 @@
 package com.g7.common;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
-@Description:
-    200: indicates success
-    500: Indicates an error, the error information is in the msg field
-    501: bean validation error, no matter how many errors are returned in the form of map
-    502: The interceptor intercepted the user token error
-    555: Exception thrown information
-    556: User qq verification is abnormal
-        */
 public class JSONResult extends Throwable {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();

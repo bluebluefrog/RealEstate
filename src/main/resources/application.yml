@@ -1,3 +1,9 @@
+server:
+    port: 8080
+    tomcat:
+        uri-encoding: UTF-8
+    max-http-header-size: 80KB
+
 #database
 spring:
     datasource:

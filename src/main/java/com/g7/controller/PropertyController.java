@@ -1,5 +1,6 @@
 package com.g7.controller;
 
+import com.g7.common.GraceJSONResult;
 import com.g7.common.JSONResult;
 import com.g7.common.PagedGridResult;
 import com.g7.service.PropertyService;
@@ -18,7 +19,7 @@ public class PropertyController {
 
 
     @GetMapping("/list")
-    public JSONResult listAllProperty(@RequestParam Integer page,
+    public Object listAllProperty(@RequestParam Integer page,
                                        @RequestParam Integer pageSize){
 
         if (page == null) {
@@ -31,6 +32,6 @@ public class PropertyController {
         PagedGridResult pagedGridResult = propertyService.listAllProperty(page, pageSize);
 
 
-        return JSONResult.ok(pagedGridResult);
+        return GraceJSONResult.ok(pagedGridResult);
     }
 }
