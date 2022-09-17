@@ -11,6 +11,5 @@ public class REApplicationApp {
 
     public static void main(String[] args) {
         ApplicationContext app = SpringApplication.run(REApplicationApp.class, args);
-
     }
 }
