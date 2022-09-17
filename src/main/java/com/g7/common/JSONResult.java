@@ -4,7 +4,7 @@ package com.g7.common;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JSONResult extends Throwable {
+public class JSONResult{
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
