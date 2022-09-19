@@ -1,14 +1,12 @@
 package com.g7.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class Auction {
     @Id
-    private Integer id;
-
-    @Column(name = "acution_time")
-    private Date acutionTime;
+    private String id;
 
     @Column(name = "auction_date")
     private Date auctionDate;
@@ -19,8 +17,8 @@ public class Auction {
     @Column(name = "starting_bid")
     private Long startingBid;
 
-    @Column(name = "highest_bid")
-    private Long highestBid;
+    @Column(name = "highest_auction_record_id")
+    private String highestAuctionRecordId;
 
     @Column(name = "auction_title")
     private String auctionTitle;
@@ -32,7 +30,7 @@ public class Auction {
     private String auctionAnnouncement;
 
     @Column(name = "real_estate_id")
-    private Integer realEstateId;
+    private String realEstateId;
 
     @Column(name = "created_time")
     private Date createdTime;
@@ -40,32 +38,29 @@ public class Auction {
     @Column(name = "updated_time")
     private Date updatedTime;
 
+    @Column(name = "auction_sponsor_id")
+    private String auctionSponsorId;
+
+    @Column(name = "security_deposit")
+    private Long securityDeposit;
+
+    @Column(name = "appraised_value")
+    private Long appraisedValue;
+
+    private Long markup;
+
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    /**
-     * @return acution_time
-     */
-    public Date getAcutionTime() {
-        return acutionTime;
-    }
-
-    /**
-     * @param acutionTime
-     */
-    public void setAcutionTime(Date acutionTime) {
-        this.acutionTime = acutionTime;
     }
 
     /**
@@ -111,17 +106,17 @@ public class Auction {
     }
 
     /**
-     * @return highest_bid
+     * @return highest_auction_record_id
      */
-    public Long getHighestBid() {
-        return highestBid;
+    public String getHighestAuctionRecordId() {
+        return highestAuctionRecordId;
     }
 
     /**
-     * @param highestBid
+     * @param highestAuctionRecordId
      */
-    public void setHighestBid(Long highestBid) {
-        this.highestBid = highestBid;
+    public void setHighestAuctionRecordId(String highestAuctionRecordId) {
+        this.highestAuctionRecordId = highestAuctionRecordId;
     }
 
     /**
@@ -169,14 +164,14 @@ public class Auction {
     /**
      * @return real_estate_id
      */
-    public Integer getRealEstateId() {
+    public String getRealEstateId() {
         return realEstateId;
     }
 
     /**
      * @param realEstateId
      */
-    public void setRealEstateId(Integer realEstateId) {
+    public void setRealEstateId(String realEstateId) {
         this.realEstateId = realEstateId;
     }
 
@@ -206,5 +201,61 @@ public class Auction {
      */
     public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    /**
+     * @return auction_sponsor_id
+     */
+    public String getAuctionSponsorId() {
+        return auctionSponsorId;
+    }
+
+    /**
+     * @param auctionSponsorId
+     */
+    public void setAuctionSponsorId(String auctionSponsorId) {
+        this.auctionSponsorId = auctionSponsorId;
+    }
+
+    /**
+     * @return security_deposit
+     */
+    public Long getSecurityDeposit() {
+        return securityDeposit;
+    }
+
+    /**
+     * @param securityDeposit
+     */
+    public void setSecurityDeposit(Long securityDeposit) {
+        this.securityDeposit = securityDeposit;
+    }
+
+    /**
+     * @return appraised_value
+     */
+    public Long getAppraisedValue() {
+        return appraisedValue;
+    }
+
+    /**
+     * @param appraisedValue
+     */
+    public void setAppraisedValue(Long appraisedValue) {
+        this.appraisedValue = appraisedValue;
+    }
+
+    /**
+     * @return markup
+     */
+    public Long getMarkup() {
+        return markup;
+    }
+
+    /**
+     * @param markup
+     */
+    public void setMarkup(Long markup) {
+        this.markup = markup;
     }
 }

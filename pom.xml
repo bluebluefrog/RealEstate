@@ -95,6 +95,19 @@
         <artifactId>swagger-bootstrap-ui</artifactId>
         <version>1.6</version>
     </dependency>
+
+    <!-- hibernate -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
 </dependencies>
 
 

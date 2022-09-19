@@ -5,7 +5,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="real_estate_type" property="realEstateType" jdbcType="INTEGER" />
     <result column="land_area" property="landArea" jdbcType="VARCHAR" />
     <result column="real_estate_area" property="realEstateArea" jdbcType="VARCHAR" />
@@ -14,7 +14,7 @@
     <result column="garage" property="garage" jdbcType="INTEGER" />
     <result column="street_address" property="streetAddress" jdbcType="VARCHAR" />
     <result column="suburb" property="suburb" jdbcType="VARCHAR" />
-    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="agent_id" property="agentId" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
     <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
   </resultMap>

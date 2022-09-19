@@ -1,55 +1,67 @@
 package com.g7.controller;
 
-import com.g7.common.JSONResult;
+import com.g7.common.result.GraceJSONResult;
 import com.g7.entity.Account;
 import com.g7.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/account")
-public class AccountController {
+public class AccountController extends BaseController{
 
     @Autowired
     private AccountService accountService;
 
     @PostMapping("/register")
-    public JSONResult register(@RequestParam String username, @RequestParam String password){
+    public GraceJSONResult register(@RequestParam String username, @RequestParam String password){
 
         if (username.length() < 6 || username == null || username.isEmpty()) {
-            return JSONResult.errorMsg("username cant less then 6 letter!");
+            return GraceJSONResult.errorMsg("username cant less then 6 letter!");
         }
 
         if (password.length() < 6 || password == null || password.isEmpty()) {
 
-            return JSONResult.errorMsg("password cant less then 6 letter!");
+            return GraceJSONResult.errorMsg("password cant less then 6 letter!");
         }
 
         Account account = accountService.register(username, password);
 
-        return JSONResult.ok(account);
+        return GraceJSONResult.ok(account);
     }
 
     @GetMapping("/login")
-    public JSONResult login(@RequestParam String username, @RequestParam String password){
+    public GraceJSONResult login(@RequestParam String username, @RequestParam String password, HttpServletRequest request, HttpServletResponse response){
 
         if (username.length() < 6 || username == null || username.isEmpty()) {
-            return JSONResult.errorMsg("username cant less then 6 letter!");
+            return GraceJSONResult.errorMsg("username cant less then 6 letter!");
         }
 
         if (password.length() < 6 || password == null || password.isEmpty()) {
 
-            return JSONResult.errorMsg("password cant less then 6 letter!");
+            return GraceJSONResult.errorMsg("password cant less then 6 letter!");
         }
 
         Account account = accountService.login(username, password);
 
         if (account==null) {
 
-            return JSONResult.errorMsg("no such account or password wrong!");
+            return GraceJSONResult.errorMsg("no such account or password wrong!");
         }
 
-        return JSONResult.ok(account);
+        //set account in session
+        account.setPassword(null);
+        account.setCreatedTime(null);
+        account.setUpdatedTime(null);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("loginAccount",account);
+
+        return GraceJSONResult.ok(account);
     }
 
 }

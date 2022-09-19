@@ -1,11 +1,12 @@
 package com.g7.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class Account {
     @Id
-    private Integer id;
+    private String id;
 
     private String username;
 
@@ -17,7 +18,7 @@ public class Account {
     private Integer isSeller;
 
     @Column(name = "person_info_id")
-    private Integer personInfoId;
+    private String personInfoId;
 
     @Column(name = "created_time")
     private Date createdTime;
@@ -28,14 +29,14 @@ public class Account {
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -98,14 +99,14 @@ public class Account {
     /**
      * @return person_info_id
      */
-    public Integer getPersonInfoId() {
+    public String getPersonInfoId() {
         return personInfoId;
     }
 
     /**
      * @param personInfoId
      */
-    public void setPersonInfoId(Integer personInfoId) {
+    public void setPersonInfoId(String personInfoId) {
         this.personInfoId = personInfoId;
     }
 

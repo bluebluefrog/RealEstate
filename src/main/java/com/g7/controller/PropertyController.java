@@ -1,6 +1,6 @@
 package com.g7.controller;
 
-import com.g7.common.JSONResult;
+import com.g7.common.result.GraceJSONResult;
 import com.g7.common.PagedGridResult;
 import com.g7.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/property")
-public class PropertyController {
+public class PropertyController extends BaseController{
 
     @Autowired
     private PropertyService propertyService;
 
 
     @GetMapping("/list")
-    public JSONResult listAllProperty(@RequestParam Integer page,
-                                       @RequestParam Integer pageSize){
+    public GraceJSONResult listAllProperty(@RequestParam Integer page,
+                                             @RequestParam Integer pageSize){
 
         if (page == null) {
             page = 1;
@@ -30,7 +30,6 @@ public class PropertyController {
 
         PagedGridResult pagedGridResult = propertyService.listAllProperty(page, pageSize);
 
-
-        return JSONResult.ok(pagedGridResult);
+        return GraceJSONResult.ok(pagedGridResult);
     }
 }

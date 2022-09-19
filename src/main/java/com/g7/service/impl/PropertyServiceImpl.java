@@ -10,6 +10,7 @@ import com.g7.service.PropertyService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -18,6 +19,20 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Autowired
     private RealEstateMapperCustom realEstateMapperCustom;
+
+    @Autowired
+    private RealEstateMapper realEstateMapper;
+
+    @Override
+    public RealEstate searchRealEstate(String realEstateId) {
+
+        Example example = new Example(RealEstate.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("id", realEstateId);
+        RealEstate realEstate = realEstateMapper.selectOneByExample(example);
+
+        return realEstate;
+    }
 
     @Override
     public PagedGridResult listAllProperty(Integer page, Integer pageSize) {

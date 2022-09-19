@@ -6,5 +6,6 @@ import com.g7.my.mapper.MyMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
+
 public interface AgentMapper extends MyMapper<Agent> {
 }

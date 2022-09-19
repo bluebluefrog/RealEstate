@@ -1,18 +1,20 @@
 package com.g7.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "watch_list")
 public class WatchList {
     @Id
-    private Integer id;
+    private String id;
 
     @Column(name = "account_id")
-    private Integer accountId;
+    private String accountId;
 
     @Column(name = "real_estate_id")
-    private Integer realEstateId;
+    private String realEstateId;
 
     @Column(name = "created_time")
     private Date createdTime;
@@ -23,42 +25,42 @@ public class WatchList {
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     /**
      * @return account_id
      */
-    public Integer getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
     /**
      * @param accountId
      */
-    public void setAccountId(Integer accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 
     /**
      * @return real_estate_id
      */
-    public Integer getRealEstateId() {
+    public String getRealEstateId() {
         return realEstateId;
     }
 
     /**
      * @param realEstateId
      */
-    public void setRealEstateId(Integer realEstateId) {
+    public void setRealEstateId(String realEstateId) {
         this.realEstateId = realEstateId;
     }
 
