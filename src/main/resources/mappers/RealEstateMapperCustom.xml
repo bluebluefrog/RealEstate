@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.g7.mapper.custom.RealEstateMapperCustom" >
+<mapper namespace="com.g7.mapper.custom.RealEstateMapperCustom">
 
     <resultMap id="RealEstateVO" type="com.g7.entity.vo.RealEstateVO">
         <id column="id" property="id"/>
@@ -24,37 +24,28 @@
         </collection>
     </resultMap>
 
-  <select id="listAllProperty" resultMap="RealEstateVO">
-        SELECT
-            *
-        FROM
-            real_estate re
-        LEFT JOIN
-            real_estate_img rei
-        ON
-            re.id=rei.real_estate_id
-        WHERE
-            re.on_auction=1
-        ORDER BY
-            re.created_time
-        DESC
-  </select>
+    <select id="listAllProperty" resultMap="RealEstateVO">
+        SELECT *
+        FROM real_estate re
+                 LEFT JOIN
+             real_estate_img rei
+             ON
+                 re.id = rei.real_estate_id
+        WHERE re.on_auction = 1
+        ORDER BY re.created_time
+                DESC
+    </select>
 
     <select id="infoProperty" resultMap="RealEstateVO">
-        SELECT
-            *
-        FROM
-            real_estate re
-                LEFT JOIN
-            real_estate_img rei
-            ON
-                re.id=rei.real_estate_id
-        WHERE
-            re.on_auction=1
-        AND
-            re.id=#{realEstateId}
-        ORDER BY
-            re.created_time
+        SELECT *
+        FROM real_estate re
+                 LEFT JOIN
+             real_estate_img rei
+             ON
+                 re.id = rei.real_estate_id
+        WHERE re.on_auction = 1
+          AND re.id = #{realEstateId}
+        ORDER BY re.created_time
                 DESC
     </select>
 

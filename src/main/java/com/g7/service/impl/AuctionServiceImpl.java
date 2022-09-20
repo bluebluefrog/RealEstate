@@ -10,6 +10,7 @@ import com.g7.entity.vo.AuctionInfoVO;
 import com.g7.mapper.AccountMapper;
 import com.g7.mapper.AuctionMapper;
 import com.g7.mapper.AuctionRecordMapper;
+import com.g7.mapper.custom.AuctionMapperCustom;
 import com.g7.service.AuctionService;
 import com.g7.service.PropertyService;
 import org.n3r.idworker.Sid;
@@ -32,10 +33,10 @@ public class AuctionServiceImpl implements AuctionService {
     private AuctionRecordMapper auctionRecordMapper;
 
     @Autowired
-    private AccountMapper accountMapper;
+    private PropertyService propertyService;
 
     @Autowired
-    private PropertyService propertyService;
+    private AuctionMapperCustom auctionMapperCustom;
 
     @Autowired
     private Sid sid;
@@ -129,6 +130,8 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Override
     public AuctionInfoVO infoAuction(String realEstateId) {
+
+        auctionMapperCustom.listAllAuctionByAuctionId()
 
         return null;
     }
