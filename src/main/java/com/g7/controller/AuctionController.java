@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/auction")
@@ -42,7 +43,7 @@ public class AuctionController extends BaseController{
     @GetMapping("/getAuctionInfo")
     public GraceJSONResult getAuctionInfo(HttpServletRequest request){
         Account account = getAccountFromSession(request);
-        AuctionInfoVO auctionInfoVO = auctionService.infoAuctionByAccountId(account.getId());
+        List<AuctionInfoVO> auctionInfoVO = auctionService.infoAuctionByAccountId(account.getId());
 
         return GraceJSONResult.ok(auctionInfoVO);
     }

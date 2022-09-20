@@ -10,6 +10,8 @@ public interface PropertyService {
 
     RealEstate searchRealEstate(String realEstateId);
 
+    void updateProperty(RealEstate realEstate);
+
     PagedGridResult listAllProperty(Integer page, Integer pageSize);
 
     RealEstateVO infoProperty(String realEstateId);

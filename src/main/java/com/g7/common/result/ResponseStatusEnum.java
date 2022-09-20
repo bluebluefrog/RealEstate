@@ -21,7 +21,7 @@ public enum ResponseStatusEnum {
     AUCTION_NO_EXIST(520,false,"auction does not exist!"),
     AUCTION_FAIL_BID_PRICE_LOW(520,false,"auction fail bid price lower then previous!"),
 
-    NO_REAL_ESTATE_EXIST(521,false,"no real estate exist!"),
+    NEED_OVER_START_BID(521,false,"your bid is not over start bid!"),
 
     PARAM_EMPTY(522,false,"param is empty!"),
 

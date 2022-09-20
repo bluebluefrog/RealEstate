@@ -3,7 +3,6 @@ package com.g7.service.impl;
 import com.g7.common.PageUtils;
 import com.g7.common.PagedGridResult;
 import com.g7.entity.RealEstate;
-import com.g7.entity.RealEstateImg;
 import com.g7.entity.vo.AuctionInfoVO;
 import com.g7.entity.vo.RealEstateAuctionVO;
 import com.g7.entity.vo.RealEstateVO;
@@ -42,6 +41,11 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
+    public void updateProperty(RealEstate realEstate){
+        realEstateMapper.updateByPrimaryKeySelective(realEstate);
+    }
+
+    @Override
     public PagedGridResult listAllProperty(Integer page, Integer pageSize) {
 
         PageHelper.startPage(page, pageSize);
@@ -68,10 +72,6 @@ public class PropertyServiceImpl implements PropertyService {
 
         RealEstateAuctionVO realEstateAuctionVO = new RealEstateAuctionVO();
         realEstateAuctionVO.setRealEstateVO(realEstateVO);
-        for (RealEstateImg img:realEstateVO.getRealEstateImgs()) {
-            System.out.println(img.getId());
-        }
-
         realEstateAuctionVO.setAuctionInfoVO(auctionInfoVO);
 
         return realEstateAuctionVO;

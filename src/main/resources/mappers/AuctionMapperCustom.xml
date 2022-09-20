@@ -26,7 +26,7 @@
         </collection>
     </resultMap>
 
-    <select id="listAllAuctionByRealEstateId" resultMap="AuctionInfoVO">
+    <select id="infoAuctionByRealEstateId" resultMap="AuctionInfoVO">
         SELECT
             a.id as auction_private_id,
             ar.id as auction_record_private_id,

@@ -7,6 +7,8 @@ import com.g7.entity.vo.AuctionInfoVO;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface AuctionService {
 
     Auction createAuction(AuctionBO auctionBO,String sponsorId);
@@ -21,5 +23,5 @@ public interface AuctionService {
 
     AuctionInfoVO infoAuction(String realEstateId);
 
-    AuctionInfoVO infoAuctionByAccountId(String accountId);
+    List<AuctionInfoVO> infoAuctionByAccountId(String accountId);
 }
