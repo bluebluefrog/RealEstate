@@ -3,7 +3,7 @@
 <mapper namespace="com.g7.mapper.custom.AuctionMapperCustom">
 
     <resultMap id="AuctionInfoVO" type="com.g7.entity.vo.AuctionInfoVO">
-        <id column="id" property="id"/>
+        <id column="auction_private_id" property="id"/>
         <result column="auction_date" property="auctionDate"/>
         <result column="auction_duration" property="auctionDuration"/>
         <result column="starting_bid" property="startingBid"/>
@@ -17,7 +17,7 @@
         <result column="appraised_value" property="appraisedValue"/>
 
         <collection property="auctionRecordList" ofType="com.g7.entity.AuctionRecord">
-            <id column="id" property="id"/>
+            <id column="auction_record_private_id" property="id"/>
             <result column="status" property="status"/>
             <result column="account_id" property="accountId"/>
             <result column="auction_id" property="auctionId"/>
@@ -27,7 +27,25 @@
     </resultMap>
 
     <select id="listAllAuctionByRealEstateId" resultMap="AuctionInfoVO">
-        SELECT *
+        SELECT
+            a.id as auction_private_id,
+            ar.id as auction_record_private_id,
+            a.auction_date,
+            a.auction_duration,
+            a.starting_bid,
+            a.highest_auction_record_id,
+            a.auction_title,
+            a.auction_detail,
+            a.auction_announcement,
+            a.real_estate_id,
+            a.auction_sponsor_id,
+            a.security_deposit,
+            a.appraised_value,
+            ar.status,
+            ar.account_id,
+            ar.auction_id,
+            ar.bid_price,
+            ar.bid_time
         FROM auction a
                  LEFT JOIN
              auction_record ar
@@ -39,7 +57,25 @@
     </select>
 
     <select id="listAllAuctionByAccountId" resultMap="AuctionInfoVO">
-        SELECT *
+        SELECT
+            a.id as auction_private_id,
+            ar.id as auction_record_private_id,
+            a.auction_date,
+            a.auction_duration,
+            a.starting_bid,
+            a.highest_auction_record_id,
+            a.auction_title,
+            a.auction_detail,
+            a.auction_announcement,
+            a.real_estate_id,
+            a.auction_sponsor_id,
+            a.security_deposit,
+            a.appraised_value,
+            ar.status,
+            ar.account_id,
+            ar.auction_id,
+            ar.bid_price,
+            ar.bid_time
         FROM auction a
                  LEFT JOIN
              auction_record ar
