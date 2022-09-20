@@ -25,7 +25,7 @@
     </resultMap>
 
     <select id="listAllProperty" resultMap="RealEstateVO">
-        SELECT *
+        SELECT re.id as id
         FROM real_estate re
                  LEFT JOIN
              real_estate_img rei
@@ -43,8 +43,8 @@
              real_estate_img rei
              ON
                  re.id = rei.real_estate_id
-        WHERE re.on_auction = 1
-          AND re.id = #{realEstateId}
+        WHERE re.id = #{realEstateId}
+          AND re.on_auction = 1
         ORDER BY re.created_time
                 DESC
     </select>

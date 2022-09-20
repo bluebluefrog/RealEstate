@@ -3,6 +3,7 @@ package com.g7.service.impl;
 import com.g7.common.PageUtils;
 import com.g7.common.PagedGridResult;
 import com.g7.entity.RealEstate;
+import com.g7.entity.RealEstateImg;
 import com.g7.entity.vo.AuctionInfoVO;
 import com.g7.entity.vo.RealEstateAuctionVO;
 import com.g7.entity.vo.RealEstateVO;
@@ -63,11 +64,15 @@ public class PropertyServiceImpl implements PropertyService {
     public RealEstateAuctionVO infoRealEstateAuction(String realEstateId) {
 
         RealEstateVO realEstateVO = infoProperty(realEstateId);
-        AuctionInfoVO auctionInfoVO =auctionService.infoAuction(realEstateId);
+        AuctionInfoVO auctionInfoVO = auctionService.infoAuction(realEstateId);
 
         RealEstateAuctionVO realEstateAuctionVO = new RealEstateAuctionVO();
         realEstateAuctionVO.setRealEstateVO(realEstateVO);
-        realEstateAuctionVO.setRealEstateVO(realEstateVO);
+        for (RealEstateImg img:realEstateVO.getRealEstateImgs()) {
+            System.out.println(img.getId());
+        }
+
+        realEstateAuctionVO.setAuctionInfoVO(auctionInfoVO);
 
         return realEstateAuctionVO;
     }

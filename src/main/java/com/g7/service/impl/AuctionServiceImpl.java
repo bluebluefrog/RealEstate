@@ -155,10 +155,6 @@ public class AuctionServiceImpl implements AuctionService {
 
         AuctionInfoVO auctionInfoVO = auctionMapperCustom.listAllAuctionByRealEstateId(realEstateId);
 
-        if (auctionInfoVO == null) {
-            GraceException.display(ResponseStatusEnum.NO_REAL_ESTATE_EXIST);
-        }
-
         return auctionInfoVO;
     }
 

@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class RealEstateVO {
-    private Integer id;
+    private String id;
     private Integer realEstateType;
     private String landArea;
     private String realEstateArea;
@@ -23,7 +23,7 @@ public class RealEstateVO {
     private Integer garage;
     private String streetAddress;
     private String suburb;
-    private Integer agentId;
+    private String agentId;
     private Integer onAuction;
     private List<RealEstateImg> realEstateImgs;
 }
