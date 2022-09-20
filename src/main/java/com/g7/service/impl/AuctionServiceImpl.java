@@ -7,7 +7,6 @@ import com.g7.entity.AuctionRecord;
 import com.g7.entity.RealEstate;
 import com.g7.entity.bo.AuctionBO;
 import com.g7.entity.vo.AuctionInfoVO;
-import com.g7.mapper.AccountMapper;
 import com.g7.mapper.AuctionMapper;
 import com.g7.mapper.AuctionRecordMapper;
 import com.g7.mapper.custom.AuctionMapperCustom;
@@ -50,6 +49,11 @@ public class AuctionServiceImpl implements AuctionService {
         if (realEstate == null) {
             GraceException.display(ResponseStatusEnum.PROPERTY_NO_EXIST);
         }
+        Auction auctionByRealEstateId = findAuctionByRealEstateId(auctionBO.getRealEstateId());
+
+        if (realEstate != null) {
+            GraceException.display(ResponseStatusEnum.AUCTION_EXIST);
+        }
 
         Auction auction=new Auction();
         String auctionId = sid.nextShort();
@@ -73,6 +77,17 @@ public class AuctionServiceImpl implements AuctionService {
 
         return auction;
     }
+
+    @Override
+    public Auction findAuctionByRealEstateId(String realEstateId){
+
+        Example example = new Example(Auction.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("real_estate_id", realEstateId);
+        Auction auction = auctionMapper.selectOneByExample(example);
+
+        return auction;
+    }
     
     @Override
     public AuctionRecord findAuctionRecordById(String auctionRecordId){
@@ -88,6 +103,10 @@ public class AuctionServiceImpl implements AuctionService {
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public AuctionRecord createAuctionRecord(String accountId, String auctionId, long bidPrice) {
+
+        if (accountId == null || auctionId == null || bidPrice <=0) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
 
         Auction auction = findAuctionById(auctionId);
 
@@ -130,9 +149,24 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Override
     public AuctionInfoVO infoAuction(String realEstateId) {
+        if (realEstateId == null) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
 
-        auctionMapperCustom.listAllAuctionByAuctionId()
+        AuctionInfoVO auctionInfoVO = auctionMapperCustom.listAllAuctionByRealEstateId(realEstateId);
 
-        return null;
+        if (auctionInfoVO == null) {
+            GraceException.display(ResponseStatusEnum.NO_REAL_ESTATE_EXIST);
+        }
+
+        return auctionInfoVO;
+    }
+
+    @Override
+    public AuctionInfoVO infoAuctionByAccountId(String accountId) {
+
+        AuctionInfoVO auctionInfoVO = auctionMapperCustom.listAllAuctionByAccountId(accountId);
+
+        return auctionInfoVO;
     }
 }

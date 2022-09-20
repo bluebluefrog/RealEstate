@@ -13,9 +13,13 @@ public interface AuctionService {
 
     Auction findAuctionById(String auctionId);
 
+    Auction findAuctionByRealEstateId(String realEstateId);
+
     AuctionRecord findAuctionRecordById(String auctionRecordId);
 
     AuctionRecord createAuctionRecord(String accountId, String auctionId, long bidPrice);
 
     AuctionInfoVO infoAuction(String realEstateId);
+
+    AuctionInfoVO infoAuctionByAccountId(String accountId);
 }

@@ -33,7 +33,7 @@
              auction_record ar
              ON
                  a.id = ar.auction_id
-        WHERE a. = #{realEstateId}
+        WHERE a.real_estate_id = #{realEstateId}
         ORDER BY a.created_time
                 DESC
     </select>
