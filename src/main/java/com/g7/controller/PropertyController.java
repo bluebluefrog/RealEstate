@@ -2,6 +2,7 @@ package com.g7.controller;
 
 import com.g7.common.result.GraceJSONResult;
 import com.g7.common.PagedGridResult;
+import com.g7.entity.vo.RealEstateAuctionVO;
 import com.g7.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,4 +33,13 @@ public class PropertyController extends BaseController{
 
         return GraceJSONResult.ok(pagedGridResult);
     }
+
+    @GetMapping("/info")
+    public GraceJSONResult infoProperty(@RequestParam String realEstateId){
+
+        RealEstateAuctionVO realEstateAuctionVO = propertyService.infoRealEstateAuction(realEstateId);
+
+        return GraceJSONResult.ok(realEstateAuctionVO);
+    }
+
 }

@@ -9,4 +9,6 @@ import java.util.List;
 public interface RealEstateMapperCustom {
 
     List<RealEstateVO> listAllProperty();
+
+    RealEstateVO infoProperty(String realEstateId);
 }

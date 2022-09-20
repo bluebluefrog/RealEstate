@@ -40,6 +40,12 @@ public class RealEstate {
     private Date updatedTime;
 
     /**
+     * 0-no 1-yes
+     */
+    @Column(name = "on_auction")
+    private Integer onAuction;
+
+    /**
      * @return id
      */
     public String getId() {
@@ -205,5 +211,23 @@ public class RealEstate {
      */
     public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    /**
+     * 获取0-no 1-yes
+     *
+     * @return on_auction - 0-no 1-yes
+     */
+    public Integer getOnAuction() {
+        return onAuction;
+    }
+
+    /**
+     * 设置0-no 1-yes
+     *
+     * @param onAuction 0-no 1-yes
+     */
+    public void setOnAuction(Integer onAuction) {
+        this.onAuction = onAuction;
     }
 }

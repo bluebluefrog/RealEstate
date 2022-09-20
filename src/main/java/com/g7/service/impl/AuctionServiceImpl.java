@@ -6,6 +6,7 @@ import com.g7.entity.Auction;
 import com.g7.entity.AuctionRecord;
 import com.g7.entity.RealEstate;
 import com.g7.entity.bo.AuctionBO;
+import com.g7.entity.vo.AuctionInfoVO;
 import com.g7.mapper.AccountMapper;
 import com.g7.mapper.AuctionMapper;
 import com.g7.mapper.AuctionRecordMapper;
@@ -124,5 +125,11 @@ public class AuctionServiceImpl implements AuctionService {
         auctionMapper.updateByPrimaryKey(auction);
 
         return auctionRecord;
+    }
+
+    @Override
+    public AuctionInfoVO infoAuction(String realEstateId) {
+
+        return null;
     }
 }

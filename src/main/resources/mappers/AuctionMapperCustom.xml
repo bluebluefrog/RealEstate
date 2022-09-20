@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.g7.mapper.custom.RealEstateMapperCustom" >
 
-    <resultMap id="RealEstateVO" type="com.g7.entity.vo.RealEstateVO">
+    <resultMap id="AuctionInfoVO" type="com.g7.entity.vo.AuctionInfoVO">
         <id column="id" property="id"/>
         <result column="real_estate_type" property="realEstateType"/>
         <result column="land_area" property="landArea"/>
