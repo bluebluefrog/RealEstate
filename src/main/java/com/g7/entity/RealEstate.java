@@ -1,12 +1,14 @@
 package com.g7.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "real_estate")
 public class RealEstate {
     @Id
-    private Integer id;
+    private String id;
 
     @Column(name = "real_estate_type")
     private Integer realEstateType;
@@ -29,7 +31,7 @@ public class RealEstate {
     private String suburb;
 
     @Column(name = "agent_id")
-    private Integer agentId;
+    private String agentId;
 
     @Column(name = "created_time")
     private Date createdTime;
@@ -40,14 +42,14 @@ public class RealEstate {
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -166,14 +168,14 @@ public class RealEstate {
     /**
      * @return agent_id
      */
-    public Integer getAgentId() {
+    public String getAgentId() {
         return agentId;
     }
 
     /**
      * @param agentId
      */
-    public void setAgentId(Integer agentId) {
+    public void setAgentId(String agentId) {
         this.agentId = agentId;
     }
 

@@ -1,15 +1,17 @@
 package com.g7.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "real_estate_img")
 public class RealEstateImg {
     @Id
-    private Integer id;
+    private String id;
 
     @Column(name = "real_estate_id")
-    private Integer realEstateId;
+    private String realEstateId;
 
     @Column(name = "position_sort")
     private Integer positionSort;
@@ -23,31 +25,33 @@ public class RealEstateImg {
     @Column(name = "updated_time")
     private Date updatedTime;
 
+    private String url;
+
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     /**
      * @return real_estate_id
      */
-    public Integer getRealEstateId() {
+    public String getRealEstateId() {
         return realEstateId;
     }
 
     /**
      * @param realEstateId
      */
-    public void setRealEstateId(Integer realEstateId) {
+    public void setRealEstateId(String realEstateId) {
         this.realEstateId = realEstateId;
     }
 
@@ -105,5 +109,19 @@ public class RealEstateImg {
      */
     public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    /**
+     * @return url
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @param url
+     */
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

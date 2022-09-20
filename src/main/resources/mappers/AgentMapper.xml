@@ -5,7 +5,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="agent_name" property="agentName" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="INTEGER" />
     <result column="company" property="company" jdbcType="VARCHAR" />

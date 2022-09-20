@@ -1,11 +1,12 @@
 package com.g7.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class Wallet {
     @Id
-    private Integer id;
+    private String id;
 
     private Long funds;
 
@@ -13,7 +14,7 @@ public class Wallet {
     private String bankAccount;
 
     @Column(name = "account_id")
-    private Integer accountId;
+    private String accountId;
 
     @Column(name = "created_time")
     private Date createdTime;
@@ -24,14 +25,14 @@ public class Wallet {
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -66,14 +67,14 @@ public class Wallet {
     /**
      * @return account_id
      */
-    public Integer getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
     /**
      * @param accountId
      */
-    public void setAccountId(Integer accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 

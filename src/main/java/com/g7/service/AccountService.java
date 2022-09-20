@@ -7,4 +7,6 @@ public interface AccountService {
     Account register(String username, String password);
 
     Account login(String username, String password);
+
+    Account checkUsername(String username);
 }

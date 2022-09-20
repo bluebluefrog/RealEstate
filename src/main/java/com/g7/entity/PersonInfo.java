@@ -1,12 +1,14 @@
 package com.g7.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "person_info")
 public class PersonInfo {
     @Id
-    private Integer id;
+    private String id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -38,14 +40,14 @@ public class PersonInfo {
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

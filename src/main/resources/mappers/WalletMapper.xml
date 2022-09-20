@@ -5,10 +5,10 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="funds" property="funds" jdbcType="DECIMAL" />
     <result column="bank_account" property="bankAccount" jdbcType="VARCHAR" />
-    <result column="account_id" property="accountId" jdbcType="INTEGER" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
     <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
   </resultMap>

@@ -1,20 +1,25 @@
 package com.g7.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "auction_record")
 public class AuctionRecord {
     @Id
-    private Integer id;
+    private String id;
 
-    private String username;
+    /**
+     * 1lead 2out
+     */
+    private Integer status;
 
     @Column(name = "account_id")
-    private Integer accountId;
+    private String accountId;
 
     @Column(name = "auction_id")
-    private Integer auctionId;
+    private String auctionId;
 
     @Column(name = "bid_price")
     private Long bidPrice;
@@ -31,56 +36,60 @@ public class AuctionRecord {
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * @return username
+     * 获取1lead 2out
+     *
+     * @return status - 1lead 2out
      */
-    public String getUsername() {
-        return username;
+    public Integer getStatus() {
+        return status;
     }
 
     /**
-     * @param username
+     * 设置1lead 2out
+     *
+     * @param status 1lead 2out
      */
-    public void setUsername(String username) {
-        this.username = username;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     /**
      * @return account_id
      */
-    public Integer getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
     /**
      * @param accountId
      */
-    public void setAccountId(Integer accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 
     /**
      * @return auction_id
      */
-    public Integer getAuctionId() {
+    public String getAuctionId() {
         return auctionId;
     }
 
     /**
      * @param auctionId
      */
-    public void setAuctionId(Integer auctionId) {
+    public void setAuctionId(String auctionId) {
         this.auctionId = auctionId;
     }
 

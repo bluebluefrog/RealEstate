@@ -1,11 +1,12 @@
 package com.g7.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class Agent {
     @Id
-    private Integer id;
+    private String id;
 
     @Column(name = "agent_name")
     private String agentName;
@@ -23,14 +24,14 @@ public class Agent {
     /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
