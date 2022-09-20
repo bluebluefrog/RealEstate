@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.g7.mapper.custom.RealEstateMapperCustom" >
+<mapper namespace="com.g7.mapper.custom.RealEstateMapperCustom">
 
     <resultMap id="RealEstateVO" type="com.g7.entity.vo.RealEstateVO">
-        <id column="id" property="id"/>
+        <id column="real_estate_id" property="id"/>
         <result column="real_estate_type" property="realEstateType"/>
         <result column="land_area" property="landArea"/>
         <result column="real_estate_area" property="realEstateArea"/>
@@ -13,9 +13,10 @@
         <result column="street_address" property="streetAddress"/>
         <result column="suburb" property="suburb"/>
         <result column="agent_id" property="agentId"/>
+        <result column="on_auction" property="onAuction"/>
 
         <collection property="realEstateImgs" ofType="com.g7.entity.RealEstateImg">
-            <id column="id" property="id"/>
+            <id column="real_estate_img_id" property="id"/>
             <result column="real_estate_id" property="realEstateId"/>
             <result column="position_sort" property="positionSort"/>
             <result column="is_main" property="isMain"/>
@@ -23,17 +24,61 @@
         </collection>
     </resultMap>
 
-  <select id="listAllProperty" resultMap="RealEstateVO">
+    <select id="listAllProperty" resultMap="RealEstateVO">
         SELECT
-            *
-        FROM
-            real_estate re
-        LEFT JOIN
-            real_estate_img rei
-        ON
-            re.id=rei.real_estate_id
-        ORDER BY
-            re.created_time
-        DESC
-  </select>
+            re.id as real_estate_id,
+            re.real_estate_type,
+            re.land_area,
+            re.real_estate_area,
+            re.bedrooms,
+            re.bathrooms,
+            re.garage,
+            re.street_address,
+            re.suburb,
+            re.agent_id,
+            re.on_auction,
+            rei.id as real_estate_img_id,
+            rei.real_estate_id,
+            rei.position_sort,
+            rei.is_main,
+            rei.url
+        FROM real_estate re
+                 LEFT JOIN
+             real_estate_img rei
+             ON
+                 re.id = rei.real_estate_id
+        WHERE re.on_auction = 1
+        ORDER BY re.created_time
+                DESC
+    </select>
+
+    <select id="infoProperty" resultMap="RealEstateVO">
+        SELECT
+            re.id as real_estate_id,
+            re.real_estate_type,
+            re.land_area,
+            re.real_estate_area,
+            re.bedrooms,
+            re.bathrooms,
+            re.garage,
+            re.street_address,
+            re.suburb,
+            re.agent_id,
+            re.on_auction,
+            rei.id as real_estate_img_id,
+            rei.real_estate_id,
+            rei.position_sort,
+            rei.is_main,
+            rei.url
+        FROM real_estate re
+                 LEFT JOIN
+             real_estate_img rei
+             ON
+                 re.id = rei.real_estate_id
+        WHERE re.id = #{realEstateId}
+          AND re.on_auction = 1
+        ORDER BY re.created_time
+                DESC
+    </select>
+
 </mapper>

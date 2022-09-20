@@ -17,5 +17,6 @@
     <result column="agent_id" property="agentId" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
     <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="on_auction" property="onAuction" jdbcType="INTEGER" />
   </resultMap>
 </mapper>

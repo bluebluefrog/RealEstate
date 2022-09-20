@@ -28,6 +28,5 @@ public class AuctionInfoVO {
     private String auctionSponsorId;
     private Long securityDeposit;
     private Long appraisedValue;
-    private RealEstate realEstate;
     private List<AuctionRecord> auctionRecordList;
 }

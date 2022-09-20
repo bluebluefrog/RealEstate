@@ -20,6 +20,12 @@ public enum ResponseStatusEnum {
     PROPERTY_NO_EXIST(519,false,"property does not exist!"),
     AUCTION_NO_EXIST(520,false,"auction does not exist!"),
     AUCTION_FAIL_BID_PRICE_LOW(520,false,"auction fail bid price lower then previous!"),
+
+    NEED_OVER_START_BID(521,false,"your bid is not over start bid!"),
+
+    PARAM_EMPTY(522,false,"param is empty!"),
+
+    AUCTION_EXIST(523,false,"auction exist!"),
     FILE_MAX_SIZE_2MB_ERROR(5132,false,"Only supports uploading pictures under 2MB!"),
 
 

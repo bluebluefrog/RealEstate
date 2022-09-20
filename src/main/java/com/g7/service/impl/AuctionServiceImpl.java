@@ -6,9 +6,10 @@ import com.g7.entity.Auction;
 import com.g7.entity.AuctionRecord;
 import com.g7.entity.RealEstate;
 import com.g7.entity.bo.AuctionBO;
-import com.g7.mapper.AccountMapper;
+import com.g7.entity.vo.AuctionInfoVO;
 import com.g7.mapper.AuctionMapper;
 import com.g7.mapper.AuctionRecordMapper;
+import com.g7.mapper.custom.AuctionMapperCustom;
 import com.g7.service.AuctionService;
 import com.g7.service.PropertyService;
 import org.n3r.idworker.Sid;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class AuctionServiceImpl implements AuctionService {
@@ -31,10 +33,10 @@ public class AuctionServiceImpl implements AuctionService {
     private AuctionRecordMapper auctionRecordMapper;
 
     @Autowired
-    private AccountMapper accountMapper;
+    private PropertyService propertyService;
 
     @Autowired
-    private PropertyService propertyService;
+    private AuctionMapperCustom auctionMapperCustom;
 
     @Autowired
     private Sid sid;
@@ -48,6 +50,11 @@ public class AuctionServiceImpl implements AuctionService {
         if (realEstate == null) {
             GraceException.display(ResponseStatusEnum.PROPERTY_NO_EXIST);
         }
+        Auction auctionByRealEstateId = findAuctionByRealEstateId(auctionBO.getRealEstateId());
+
+        if (auctionByRealEstateId != null) {
+            GraceException.display(ResponseStatusEnum.AUCTION_EXIST);
+        }
 
         Auction auction=new Auction();
         String auctionId = sid.nextShort();
@@ -58,6 +65,12 @@ public class AuctionServiceImpl implements AuctionService {
 
         auctionMapper.insert(auction);
 
+        //change property on auction status
+        RealEstate realEstateUpdate = new RealEstate();
+        realEstateUpdate.setId(auctionBO.getRealEstateId());
+        realEstateUpdate.setOnAuction(1);
+        propertyService.updateProperty(realEstateUpdate);
+
         return auction;
     }
 
@@ -67,6 +80,17 @@ public class AuctionServiceImpl implements AuctionService {
         Example example = new Example(Auction.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("id", auctionId);
+        Auction auction = auctionMapper.selectOneByExample(example);
+
+        return auction;
+    }
+
+    @Override
+    public Auction findAuctionByRealEstateId(String realEstateId){
+
+        Example example = new Example(Auction.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("realEstateId", realEstateId);
         Auction auction = auctionMapper.selectOneByExample(example);
 
         return auction;
@@ -87,10 +111,18 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public AuctionRecord createAuctionRecord(String accountId, String auctionId, long bidPrice) {
 
+        if (accountId == null || auctionId == null || bidPrice <=0) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
+
         Auction auction = findAuctionById(auctionId);
 
         if (auction == null) {
             GraceException.display(ResponseStatusEnum.AUCTION_NO_EXIST);
+        }
+
+        if (bidPrice < auction.getStartingBid()) {
+            GraceException.display(ResponseStatusEnum.NEED_OVER_START_BID);
         }
 
         if (!auction.getHighestAuctionRecordId().equals("0")) {
@@ -124,5 +156,24 @@ public class AuctionServiceImpl implements AuctionService {
         auctionMapper.updateByPrimaryKey(auction);
 
         return auctionRecord;
+    }
+
+    @Override
+    public AuctionInfoVO infoAuction(String realEstateId) {
+        if (realEstateId == null) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
+
+        AuctionInfoVO auctionInfoVO = auctionMapperCustom.infoAuctionByRealEstateId(realEstateId);
+
+        return auctionInfoVO;
+    }
+
+    @Override
+    public List<AuctionInfoVO> infoAuctionByAccountId(String accountId) {
+
+        List<AuctionInfoVO> auctionInfoVO = auctionMapperCustom.listAllAuctionByAccountId(accountId);
+
+        return auctionInfoVO;
     }
 }
