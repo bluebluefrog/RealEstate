@@ -36,4 +36,12 @@ public class AuctionController extends BaseController{
 
         return GraceJSONResult.ok(auctionRecord);
     }
+
+
+    @GetMapping("/getAuctionInfo")
+    public GraceJSONResult getAuctionInfo(HttpServletRequest request){
+        Account account = getAccountFromSession(request);
+
+        return GraceJSONResult.ok();
+    }
 }

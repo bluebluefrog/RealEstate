@@ -1,9 +1,18 @@
 package com.g7.entity.vo;
 
 import com.g7.entity.RealEstateImg;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Date;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class RealEstateVO {
     private Integer id;
     private Integer realEstateType;
@@ -15,6 +24,10 @@ public class RealEstateVO {
     private String streetAddress;
     private String suburb;
     private Integer agentId;
+
+    private Date createdTime;
+    private Date updatedTime;
+    private List<RealEstateImg> realEstateImgs;
 
     public Integer getId() {
         return id;
@@ -119,8 +132,4 @@ public class RealEstateVO {
     public void setRealEstateImgs(List<RealEstateImg> realEstateImgs) {
         this.realEstateImgs = realEstateImgs;
     }
-
-    private Date createdTime;
-    private Date updatedTime;
-    private List<RealEstateImg> realEstateImgs;
 }
