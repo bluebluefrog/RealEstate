@@ -132,12 +132,21 @@ public class AccountServiceImpl implements AccountService {
         return personInfo;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public PersonInfo updatePersonInfo(UpdatePersonInfoBO updatePersonInfoBO, String personInfoId) {
 
         PersonInfo personInfo = new PersonInfo();
         BeanUtils.copyProperties(updatePersonInfoBO, personInfo);
         personInfo.setId(personInfoId);
+
+        System.out.println(personInfo.getOtherInfo());
+        System.out.println(personInfo.getId());
+        System.out.println(personInfo.getAddress());
+        System.out.println(personInfo.getSex());
+        System.out.println(personInfo.getEmail());
+        System.out.println(personInfo.getAge());
+
 
         personInfoMapper.updateByPrimaryKeySelective(personInfo);
 

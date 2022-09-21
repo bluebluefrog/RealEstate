@@ -75,7 +75,7 @@ public class AccountController extends BaseController{
     }
 
     @PostMapping("/updatePersonInfo")
-    public GraceJSONResult personInfo(UpdatePersonInfoBO updatePersonInfoBO,HttpServletRequest request){
+    public GraceJSONResult personInfo(@RequestBody UpdatePersonInfoBO updatePersonInfoBO,HttpServletRequest request){
         Account account = getAccountFromSession(request);
         PersonInfo personInfo=accountService.updatePersonInfo(updatePersonInfoBO,account.getPersonInfoId());
 
