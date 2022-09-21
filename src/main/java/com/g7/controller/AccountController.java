@@ -1,6 +1,8 @@
 package com.g7.controller;
 
+import com.g7.common.exception.GraceException;
 import com.g7.common.result.GraceJSONResult;
+import com.g7.common.result.ResponseStatusEnum;
 import com.g7.entity.Account;
 import com.g7.entity.PersonInfo;
 import com.g7.entity.bo.UpdatePersonInfoBO;
@@ -77,6 +79,9 @@ public class AccountController extends BaseController{
     @PostMapping("/updatePersonInfo")
     public GraceJSONResult personInfo(@RequestBody UpdatePersonInfoBO updatePersonInfoBO,HttpServletRequest request){
         Account account = getAccountFromSession(request);
+        if (updatePersonInfoBO == null) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
         PersonInfo personInfo=accountService.updatePersonInfo(updatePersonInfoBO,account.getPersonInfoId());
 
         return GraceJSONResult.ok(personInfo);
