@@ -3,6 +3,7 @@ package com.g7.service.impl;
 import com.g7.common.PageUtils;
 import com.g7.common.PagedGridResult;
 import com.g7.entity.RealEstate;
+import com.g7.entity.bo.RealEstateBO;
 import com.g7.entity.vo.AuctionInfoVO;
 import com.g7.entity.vo.RealEstateAuctionVO;
 import com.g7.entity.vo.RealEstateVO;
@@ -11,8 +12,12 @@ import com.g7.mapper.custom.RealEstateMapperCustom;
 import com.g7.service.AuctionService;
 import com.g7.service.PropertyService;
 import com.github.pagehelper.PageHelper;
+import org.n3r.idworker.Sid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -28,6 +33,9 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Autowired
     private AuctionService auctionService;
+
+    @Autowired
+    private Sid sid;
 
     @Override
     public RealEstate searchRealEstate(String realEstateId) {
@@ -75,5 +83,21 @@ public class PropertyServiceImpl implements PropertyService {
         realEstateAuctionVO.setAuctionInfoVO(auctionInfoVO);
 
         return realEstateAuctionVO;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public RealEstate createProperty(RealEstateBO realEstateBO) {
+
+        RealEstate realEstate = new RealEstate();
+        BeanUtils.copyProperties(realEstateBO, realEstate);
+        String realEstateId = sid.nextShort();
+        realEstate.setId(realEstateId);
+        realEstate.setAgentId("");
+        realEstate.setOnAuction(0);
+
+        realEstateMapper.insert(realEstate);
+
+        return realEstate;
     }
 }

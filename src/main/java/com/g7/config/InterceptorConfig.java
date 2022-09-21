@@ -21,7 +21,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(accountInterceptor())
                 .addPathPatterns("/auction/createAuction")
                 .addPathPatterns("/auction/createAuctionRecord")
-                .addPathPatterns("/auction/getAuctionInfo");
+                .addPathPatterns("/auction/getAuctionInfo")
+                .addPathPatterns("/account/logout")
+                .addPathPatterns("/account/updatePersonInfo")
+                .addPathPatterns("/property/createProperty");
 
     }
 }

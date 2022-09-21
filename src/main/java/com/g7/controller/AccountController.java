@@ -2,6 +2,8 @@ package com.g7.controller;
 
 import com.g7.common.result.GraceJSONResult;
 import com.g7.entity.Account;
+import com.g7.entity.PersonInfo;
+import com.g7.entity.bo.UpdatePersonInfoBO;
 import com.g7.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +64,31 @@ public class AccountController extends BaseController{
         session.setAttribute("loginAccount",account);
 
         return GraceJSONResult.ok(account);
+    }
+
+    @GetMapping("/personInfo")
+    public GraceJSONResult personInfo(HttpServletRequest request){
+        Account account = getAccountFromSession(request);
+        PersonInfo personInfo = accountService.personInfo(account);
+
+        return GraceJSONResult.ok(personInfo);
+    }
+
+    @PostMapping("/updatePersonInfo")
+    public GraceJSONResult personInfo(@RequestBody UpdatePersonInfoBO updatePersonInfoBO,HttpServletRequest request){
+        Account account = getAccountFromSession(request);
+        PersonInfo personInfo=accountService.updatePersonInfo(updatePersonInfoBO,account.getPersonInfoId());
+
+        return GraceJSONResult.ok(personInfo);
+    }
+
+
+    @GetMapping("/logout")
+    public GraceJSONResult logout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.removeAttribute("loginAccount");
+
+        return GraceJSONResult.ok();
     }
 
 }
