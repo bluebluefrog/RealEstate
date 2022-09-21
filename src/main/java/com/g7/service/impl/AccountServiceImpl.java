@@ -5,21 +5,21 @@ import com.g7.common.exception.GraceException;
 import com.g7.common.result.ResponseStatusEnum;
 import com.g7.entity.Account;
 import com.g7.entity.PersonInfo;
+import com.g7.entity.bo.UpdatePersonInfoBO;
 import com.g7.entity.enums.Sex;
 import com.g7.entity.enums.YesOrNo;
 import com.g7.mapper.AccountMapper;
 import com.g7.mapper.PersonInfoMapper;
 import com.g7.service.AccountService;
 import org.n3r.idworker.Sid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import javax.annotation.Resource;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -119,5 +119,28 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountMapper.selectOneByExample(example);
 
         return account;
+    }
+
+    @Override
+    public PersonInfo personInfo(Account account) {
+
+        Example personInfoExample = new Example(PersonInfo.class);
+        Example.Criteria personInfoCriteria = personInfoExample.createCriteria();
+        personInfoCriteria.andEqualTo("id", account.getPersonInfoId());
+        PersonInfo personInfo = personInfoMapper.selectOneByExample(personInfoExample);
+
+        return personInfo;
+    }
+
+    @Override
+    public PersonInfo updatePersonInfo(UpdatePersonInfoBO updatePersonInfoBO, String personInfoId) {
+
+        PersonInfo personInfo = new PersonInfo();
+        BeanUtils.copyProperties(updatePersonInfoBO, personInfo);
+        personInfo.setId(personInfoId);
+
+        personInfoMapper.updateByPrimaryKeySelective(personInfo);
+
+        return personInfo;
     }
 }

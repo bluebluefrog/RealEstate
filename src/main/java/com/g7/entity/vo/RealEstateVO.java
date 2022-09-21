@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class RealEstateVO {
+
     private String id;
     private Integer realEstateType;
     private String landArea;
