@@ -26,5 +26,6 @@ public class RealEstateVO {
     private String suburb;
     private String agentId;
     private Integer onAuction;
+    private String title;
     private List<RealEstateImg> realEstateImgs;
 }

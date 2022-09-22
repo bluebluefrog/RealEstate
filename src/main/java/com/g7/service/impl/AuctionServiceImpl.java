@@ -56,6 +56,14 @@ public class AuctionServiceImpl implements AuctionService {
             GraceException.display(ResponseStatusEnum.AUCTION_EXIST);
         }
 
+        if (auctionBO.getAuctionDate().compareTo(auctionBO.getAuctionDuration()) > 0) {
+            GraceException.display(ResponseStatusEnum.AUCTION_DATE_WRONG);
+        }
+
+        if (auctionBO.getMarkup() > auctionBO.getStartingBid()) {
+            GraceException.display(ResponseStatusEnum.AUCTION_BID_WRONG);
+        }
+
         Auction auction=new Auction();
         String auctionId = sid.nextShort();
         auction.setId(auctionId);
@@ -121,6 +129,10 @@ public class AuctionServiceImpl implements AuctionService {
             GraceException.display(ResponseStatusEnum.AUCTION_NO_EXIST);
         }
 
+        if (new Date().compareTo(auction.getAuctionDuration()) > 0) {
+            GraceException.display(ResponseStatusEnum.AUCTION_EXPIRE);
+        }
+
         if (bidPrice < auction.getStartingBid()) {
             GraceException.display(ResponseStatusEnum.NEED_OVER_START_BID);
         }
@@ -130,6 +142,10 @@ public class AuctionServiceImpl implements AuctionService {
 
             if (oldAuctionRecord.getBidPrice() >= bidPrice) {
                 GraceException.display(ResponseStatusEnum.AUCTION_FAIL_BID_PRICE_LOW);
+            }
+
+            if (bidPrice - oldAuctionRecord.getBidPrice() < auction.getMarkup()) {
+                GraceException.display(ResponseStatusEnum.BID_MARKUP_NEED_REACH_THE_STANDARD);
             }
 
             //update old record status

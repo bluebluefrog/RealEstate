@@ -7,13 +7,15 @@ import com.g7.entity.bo.RealEstateBO;
 import com.g7.entity.vo.RealEstateAuctionVO;
 import com.g7.entity.vo.RealEstateVO;
 
+import java.util.List;
+
 public interface PropertyService {
 
     RealEstate searchRealEstate(String realEstateId);
 
     void updateProperty(RealEstate realEstate);
 
-    PagedGridResult listAllProperty(Integer page, Integer pageSize);
+    PagedGridResult listAllProperty(Integer page, Integer pageSize,String keyWord);
 
     RealEstateVO infoProperty(String realEstateId);
 
