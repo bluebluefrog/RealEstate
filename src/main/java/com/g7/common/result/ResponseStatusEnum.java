@@ -34,6 +34,10 @@ public enum ResponseStatusEnum {
     AUCTION_DATE_WRONG(525,false,"auction date or duration is wrong!"),
 
     AUCTION_BID_WRONG(526,false,"auction start bid or markup is wrong!"),
+
+    NO_WATCH_LIST(527,false,"no watch list!"),
+
+    WATCH_LIST_EXIST(527,false,"watch list exist!"),
     FILE_MAX_SIZE_2MB_ERROR(5132,false,"Only supports uploading pictures under 2MB!"),
 
 

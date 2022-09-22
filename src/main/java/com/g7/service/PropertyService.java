@@ -15,7 +15,7 @@ public interface PropertyService {
 
     void updateProperty(RealEstate realEstate);
 
-    PagedGridResult listAllProperty(Integer page, Integer pageSize,String keyWord);
+    PagedGridResult listAllProperty(Integer page, Integer pageSize, String keyWord, Integer onAuction, List<String> accountIds);
 
     RealEstateVO infoProperty(String realEstateId);
 
