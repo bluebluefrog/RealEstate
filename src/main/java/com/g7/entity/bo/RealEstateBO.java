@@ -40,4 +40,7 @@ public class RealEstateBO {
     @NotBlank(message = "need suburb")
     private String suburb;
 
+    @NotBlank(message = "need title")
+    private String title;
+
 }

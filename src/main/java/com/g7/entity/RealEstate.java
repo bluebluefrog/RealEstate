@@ -45,6 +45,8 @@ public class RealEstate {
     @Column(name = "on_auction")
     private Integer onAuction;
 
+    private String title;
+
     /**
      * @return id
      */
@@ -229,5 +231,19 @@ public class RealEstate {
      */
     public void setOnAuction(Integer onAuction) {
         this.onAuction = onAuction;
+    }
+
+    /**
+     * @return title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

@@ -10,6 +10,8 @@ import com.g7.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/property")
 public class PropertyController extends BaseController{
@@ -20,7 +22,8 @@ public class PropertyController extends BaseController{
 
     @GetMapping("/list")
     public GraceJSONResult listAllProperty(@RequestParam Integer page,
-                                             @RequestParam Integer pageSize){
+                                           @RequestParam Integer pageSize,
+                                           @RequestParam String keyWord){
 
         if (page == null) {
             page = 1;
@@ -29,7 +32,7 @@ public class PropertyController extends BaseController{
             pageSize = 10;
         }
 
-        PagedGridResult pagedGridResult = propertyService.listAllProperty(page, pageSize);
+        PagedGridResult pagedGridResult = propertyService.listAllProperty(page, pageSize, keyWord, 1, null);
 
         return GraceJSONResult.ok(pagedGridResult);
     }

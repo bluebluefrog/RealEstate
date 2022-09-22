@@ -12,6 +12,7 @@ import com.g7.mapper.custom.RealEstateMapperCustom;
 import com.g7.service.AuctionService;
 import com.g7.service.PropertyService;
 import com.github.pagehelper.PageHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PropertyServiceImpl implements PropertyService {
@@ -54,11 +57,27 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public PagedGridResult listAllProperty(Integer page, Integer pageSize) {
+    public PagedGridResult listAllProperty(Integer page, Integer pageSize, String keyWord, Integer onAuction, List<String> realEstateIds) {
+
+        Map<String, Object> map = new HashMap<>();
+
+        if (!StringUtils.isNotBlank(keyWord)) {
+            map.put("search", keyWord);
+        }
+
+        if (realEstateIds != null) {
+            map.put("realEstateIds", realEstateIds);
+        }
+
+        if (onAuction != null) {
+            map.put("onAuction", onAuction);
+        }else{
+            map.put("onAuction", "*");
+        }
 
         PageHelper.startPage(page, pageSize);
 
-        List<RealEstateVO> realEstateVOS = realEstateMapperCustom.listAllProperty();
+        List<RealEstateVO> realEstateVOS = realEstateMapperCustom.listAllProperty(map);
 
         return PageUtils.setterPagedGrid(realEstateVOS, page);
     }
@@ -100,4 +119,5 @@ public class PropertyServiceImpl implements PropertyService {
 
         return realEstate;
     }
+
 }

@@ -12,6 +12,7 @@ import com.g7.mapper.AuctionRecordMapper;
 import com.g7.mapper.custom.AuctionMapperCustom;
 import com.g7.service.AuctionService;
 import com.g7.service.PropertyService;
+import org.apache.commons.lang3.StringUtils;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,19 @@ public class AuctionServiceImpl implements AuctionService {
         if (realEstate == null) {
             GraceException.display(ResponseStatusEnum.PROPERTY_NO_EXIST);
         }
+
         Auction auctionByRealEstateId = findAuctionByRealEstateId(auctionBO.getRealEstateId());
 
         if (auctionByRealEstateId != null) {
             GraceException.display(ResponseStatusEnum.AUCTION_EXIST);
+        }
+
+        if (auctionBO.getAuctionDate().compareTo(auctionBO.getAuctionDuration()) > 0) {
+            GraceException.display(ResponseStatusEnum.AUCTION_DATE_WRONG);
+        }
+
+        if (auctionBO.getMarkup() > auctionBO.getStartingBid()) {
+            GraceException.display(ResponseStatusEnum.AUCTION_BID_WRONG);
         }
 
         Auction auction=new Auction();
@@ -77,6 +87,10 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public Auction findAuctionById(String auctionId){
 
+        if (!StringUtils.isNotBlank(auctionId)) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
+
         Example example = new Example(Auction.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("id", auctionId);
@@ -88,6 +102,10 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public Auction findAuctionByRealEstateId(String realEstateId){
 
+        if (!StringUtils.isNotBlank(realEstateId)) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
+
         Example example = new Example(Auction.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("realEstateId", realEstateId);
@@ -98,6 +116,10 @@ public class AuctionServiceImpl implements AuctionService {
     
     @Override
     public AuctionRecord findAuctionRecordById(String auctionRecordId){
+
+        if (!StringUtils.isNotBlank(auctionRecordId)) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
 
         Example example = new Example(AuctionRecord.class);
         Example.Criteria criteria = example.createCriteria();
@@ -111,7 +133,7 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public AuctionRecord createAuctionRecord(String accountId, String auctionId, long bidPrice) {
 
-        if (accountId == null || auctionId == null || bidPrice <=0) {
+        if (accountId == null || auctionId == null || bidPrice <= 0) {
             GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
         }
 
@@ -119,6 +141,10 @@ public class AuctionServiceImpl implements AuctionService {
 
         if (auction == null) {
             GraceException.display(ResponseStatusEnum.AUCTION_NO_EXIST);
+        }
+
+        if (new Date().compareTo(auction.getAuctionDuration()) > 0) {
+            GraceException.display(ResponseStatusEnum.AUCTION_EXPIRE);
         }
 
         if (bidPrice < auction.getStartingBid()) {
@@ -130,6 +156,10 @@ public class AuctionServiceImpl implements AuctionService {
 
             if (oldAuctionRecord.getBidPrice() >= bidPrice) {
                 GraceException.display(ResponseStatusEnum.AUCTION_FAIL_BID_PRICE_LOW);
+            }
+
+            if (bidPrice - oldAuctionRecord.getBidPrice() < auction.getMarkup()) {
+                GraceException.display(ResponseStatusEnum.BID_MARKUP_NEED_REACH_THE_STANDARD);
             }
 
             //update old record status
@@ -160,7 +190,8 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Override
     public AuctionInfoVO infoAuction(String realEstateId) {
-        if (realEstateId == null) {
+
+        if (!StringUtils.isNotBlank(realEstateId)) {
             GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
         }
 
