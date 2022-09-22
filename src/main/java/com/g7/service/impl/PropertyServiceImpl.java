@@ -57,22 +57,22 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public PagedGridResult listAllProperty(Integer page, Integer pageSize, String keyWord, Integer onAuction, List<String> accountIds) {
+    public PagedGridResult listAllProperty(Integer page, Integer pageSize, String keyWord, Integer onAuction, List<String> realEstateIds) {
 
         Map<String, Object> map = new HashMap<>();
 
-        if (StringUtils.isNotBlank(keyWord)) {
+        if (!StringUtils.isNotBlank(keyWord)) {
             map.put("search", keyWord);
         }
 
-        if (StringUtils.isNotBlank(keyWord) && accountIds != null) {
-            map.put("accountIds", accountIds);
+        if (realEstateIds != null) {
+            map.put("realEstateIds", realEstateIds);
         }
 
         if (onAuction != null) {
             map.put("onAuction", onAuction);
         }else{
-            map.put("onAuction", 1);
+            map.put("onAuction", "*");
         }
 
         PageHelper.startPage(page, pageSize);

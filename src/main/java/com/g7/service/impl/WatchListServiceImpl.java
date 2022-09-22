@@ -27,7 +27,7 @@ public class WatchListServiceImpl implements WatchListService {
     @Override
     public List<String> getRealEstateIdByAccountId(String accountId) {
 
-        Example example = new Example(RealEstate.class);
+        Example example = new Example(WatchList.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("accountId", accountId);
         List<WatchList> watchLists = watchListMapper.selectByExample(example);
@@ -36,19 +36,20 @@ public class WatchListServiceImpl implements WatchListService {
             GraceException.display(ResponseStatusEnum.NO_WATCH_LIST);
         }
 
-        List<String> accountIds = new ArrayList<>();
+        List<String> realEstateIds = new ArrayList<>();
 
         for (WatchList watchList:watchLists) {
-            accountIds.add(watchList.getAccountId());
+            realEstateIds.add(watchList.getRealEstateId());
         }
 
-        return accountIds;
+        return realEstateIds;
     }
 
     @Override
     public void addRealEstateIdByAccountId(String realEstateId, String accountId) {
 
-        if (StringUtils.isNotBlank(realEstateId)) {
+        System.out.println(realEstateId);
+        if (!StringUtils.isNotBlank(realEstateId)) {
             GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
         }
         Example example = new Example(WatchList.class);
@@ -73,7 +74,7 @@ public class WatchListServiceImpl implements WatchListService {
     @Override
     public void deleteRealEstateIdByAccountId(String realEstateId, String accountId) {
 
-        if (StringUtils.isNotBlank(realEstateId)) {
+        if (!StringUtils.isNotBlank(realEstateId)) {
             GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
         }
 

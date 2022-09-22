@@ -32,7 +32,7 @@ public class PropertyController extends BaseController{
             pageSize = 10;
         }
 
-        PagedGridResult pagedGridResult = propertyService.listAllProperty(page, pageSize, keyWord, null, null);
+        PagedGridResult pagedGridResult = propertyService.listAllProperty(page, pageSize, keyWord, 1, null);
 
         return GraceJSONResult.ok(pagedGridResult);
     }

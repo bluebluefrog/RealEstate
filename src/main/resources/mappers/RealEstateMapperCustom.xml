@@ -52,15 +52,15 @@
         WHERE
             1=1
             <if test="paramMap.onAuction != null and paramMap.onAuction != ''">
-                AND re.on_auction like '%${paramMap.onAuction}%'
+                AND re.on_auction = '%${paramMap.onAuction}%'
             </if>
             <if test="paramMap.search != null and paramMap.search != ''">
                 AND re.title like '%${paramMap.search}%'
             </if>
-            <if test="paramMap.accountIds != null and paramMap.accountIds != ''">
+            <if test="paramMap.realEstateIds != null and paramMap.realEstateIds.size > 0">
                 AND re.id in
-                <foreach collection="paramMap.accountIds" item="accountId" index="index" open="(" close=")" separator=",">
-                    #{accountId}
+                <foreach collection="paramMap.realEstateIds" item="realEstateId" index="index" open="(" close=")" separator=",">
+                    #{realEstateId}
                 </foreach>
             </if>
         ORDER BY re.created_time
