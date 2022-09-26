@@ -9,6 +9,7 @@ import com.g7.entity.bo.UpdatePersonInfoBO;
 import com.g7.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -85,6 +86,16 @@ public class AccountController extends BaseController{
         PersonInfo personInfo=accountService.updatePersonInfo(updatePersonInfoBO,account.getPersonInfoId());
 
         return GraceJSONResult.ok(personInfo);
+    }
+
+    @PostMapping("/avatar")
+    public GraceJSONResult avatar(MultipartFile multipartFile, HttpServletRequest request) {
+        Account account = getAccountFromSession(request);
+
+        String imgPath = uploadImage(multipartFile);
+        accountService.avatar(imgPath,account.getId());
+
+        return GraceJSONResult.ok();
     }
 
 

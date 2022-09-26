@@ -3,10 +3,12 @@ package com.g7.service.impl;
 import com.g7.common.PageUtils;
 import com.g7.common.PagedGridResult;
 import com.g7.entity.RealEstate;
+import com.g7.entity.RealEstateImg;
 import com.g7.entity.bo.RealEstateBO;
 import com.g7.entity.vo.AuctionInfoVO;
 import com.g7.entity.vo.RealEstateAuctionVO;
 import com.g7.entity.vo.RealEstateVO;
+import com.g7.mapper.RealEstateImgMapper;
 import com.g7.mapper.RealEstateMapper;
 import com.g7.mapper.custom.RealEstateMapperCustom;
 import com.g7.service.AuctionService;
@@ -36,6 +38,9 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Autowired
     private AuctionService auctionService;
+
+    @Autowired
+    private RealEstateImgMapper realEstateImgMapper;
 
     @Autowired
     private Sid sid;
@@ -118,6 +123,30 @@ public class PropertyServiceImpl implements PropertyService {
         realEstateMapper.insert(realEstate);
 
         return realEstate;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void uploadPropertyImgs(List<String> imgPathList, String propertyId) {
+
+        RealEstateImg img;
+        int position = 1;
+        for (String imgPath:imgPathList) {
+            img = new RealEstateImg();
+            img.setId(sid.nextShort());
+            img.setRealEstateId(propertyId);
+            img.setPositionSort(position);
+            if (position == 1) {
+                img.setIsMain(1);
+            } else {
+                img.setIsMain(0);
+            }
+            img.setUrl(imgPath);
+
+            realEstateImgMapper.insert(img);
+
+            position++;
+        }
     }
 
 }

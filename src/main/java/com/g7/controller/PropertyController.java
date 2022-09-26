@@ -9,6 +9,7 @@ import com.g7.entity.vo.RealEstateVO;
 import com.g7.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -51,6 +52,14 @@ public class PropertyController extends BaseController{
         RealEstate realEstate = propertyService.createProperty(realEstateBO);
 
         return GraceJSONResult.ok(realEstate);
+    }
+
+    @PostMapping("/uploadPropertyPhoto")
+    public GraceJSONResult uploadPropertyPhoto(MultipartFile[] multipartFiles, @RequestParam String propertyId) {
+        List<String> imgPathList = uploadImage(multipartFiles);
+        propertyService.uploadPropertyImgs(imgPathList, propertyId);
+
+        return GraceJSONResult.ok(imgPathList);
     }
 
 }

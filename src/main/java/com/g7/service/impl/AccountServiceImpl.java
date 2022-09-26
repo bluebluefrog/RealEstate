@@ -162,4 +162,12 @@ public class AccountServiceImpl implements AccountService {
 
         return personInfo;
     }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void avatar(String imgPath, String accountId) {
+        Account account = accountMapper.selectByPrimaryKey(accountId);
+        account.setAvatar(imgPath);
+        accountMapper.updateByPrimaryKey(account);
+    }
 }

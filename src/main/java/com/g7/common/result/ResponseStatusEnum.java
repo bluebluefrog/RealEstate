@@ -38,6 +38,10 @@ public enum ResponseStatusEnum {
     NO_WATCH_LIST(527,false,"no watch list!"),
 
     WATCH_LIST_EXIST(527,false,"watch list exist!"),
+
+    FUND_NOT_ENOUGH(528,false,"fund not enough!"),
+
+    IMG_UPLOAD_FAIL(529,false,"img upload fail!"),
     FILE_MAX_SIZE_2MB_ERROR(5132,false,"Only supports uploading pictures under 2MB!"),
 
 

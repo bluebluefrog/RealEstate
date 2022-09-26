@@ -22,4 +22,6 @@ public interface PropertyService {
     RealEstateAuctionVO infoRealEstateAuction(String realEstateId);
 
     RealEstate createProperty(RealEstateBO realEstateBO);
+
+    void uploadPropertyImgs(List<String> imgPathList, String propertyId);
 }
