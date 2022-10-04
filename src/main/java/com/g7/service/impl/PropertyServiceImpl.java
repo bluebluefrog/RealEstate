@@ -64,9 +64,12 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public PagedGridResult listAllProperty(Integer page, Integer pageSize, String keyWord, Integer onAuction, List<String> realEstateIds) {
 
+        PageHelper.startPage(page, pageSize);
+
         Map<String, Object> map = new HashMap<>();
 
-        if (!StringUtils.isNotBlank(keyWord)) {
+        if (StringUtils.isNotBlank(keyWord)) {
+            System.out.println("set");
             map.put("search", keyWord);
         }
 
@@ -74,15 +77,12 @@ public class PropertyServiceImpl implements PropertyService {
             map.put("realEstateIds", realEstateIds);
         }
 
-        if (onAuction != null) {
-            map.put("onAuction", onAuction);
-        }else{
-            map.put("onAuction", "*");
-        }
-
-        PageHelper.startPage(page, pageSize);
-
         List<RealEstateVO> realEstateVOS = realEstateMapperCustom.listAllProperty(map);
+
+        for (RealEstateVO re:realEstateVOS
+             ) {
+            System.out.println(re.getStreetAddress());
+        }
 
         return PageUtils.setterPagedGrid(realEstateVOS, page);
     }

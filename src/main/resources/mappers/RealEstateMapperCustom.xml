@@ -50,10 +50,7 @@
              ON
                  re.id = rei.real_estate_id
         WHERE
-            1=1
-            <if test="paramMap.onAuction != null and paramMap.onAuction != ''">
-                AND re.on_auction = '%${paramMap.onAuction}%'
-            </if>
+            re.on_auction = 1
             <if test="paramMap.search != null and paramMap.search != ''">
                 AND re.title like '%${paramMap.search}%'
             </if>
