@@ -47,7 +47,7 @@ public class BaseController {
             GraceException.display(ResponseStatusEnum.IMG_UPLOAD_FAIL);
         }
 
-        return "/images/" + uuid + fileSuffix;
+        return "http://127.0.0.1:8080/images/" + uuid + fileSuffix;
     }
 
     public List<String> uploadImage(MultipartFile[] multipartFiles){
@@ -71,7 +71,7 @@ public class BaseController {
             } catch (IOException e) {
                 GraceException.display(ResponseStatusEnum.IMG_UPLOAD_FAIL);
             }
-            imgsPath.add("/images/" + uuid + fileSuffix);
+            imgsPath.add("http://127.0.0.1:8080/images/" + uuid + fileSuffix);
         }
         return imgsPath;
     }

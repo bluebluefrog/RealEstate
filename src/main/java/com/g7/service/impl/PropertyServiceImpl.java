@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,12 +65,9 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public PagedGridResult listAllProperty(Integer page, Integer pageSize, String keyWord, Integer onAuction, List<String> realEstateIds) {
 
-        PageHelper.startPage(page, pageSize);
-
         Map<String, Object> map = new HashMap<>();
 
-        if (StringUtils.isNotBlank(keyWord)) {
-            System.out.println("set");
+        if (keyWord != "") {
             map.put("search", keyWord);
         }
 
@@ -79,12 +77,8 @@ public class PropertyServiceImpl implements PropertyService {
 
         List<RealEstateVO> realEstateVOS = realEstateMapperCustom.listAllProperty(map);
 
-        for (RealEstateVO re:realEstateVOS
-             ) {
-            System.out.println(re.getStreetAddress());
-        }
 
-        return PageUtils.setterPagedGrid(realEstateVOS, page);
+        return PageUtils.setterPagedGrid(realEstateVOS, page,pageSize);
     }
 
     @Override

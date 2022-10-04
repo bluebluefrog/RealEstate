@@ -52,7 +52,7 @@
              ON
                  a.id = ar.auction_id
         WHERE a.real_estate_id = #{realEstateId}
-        ORDER BY a.created_time
+        ORDER BY ar.created_time
                 DESC
     </select>
 
@@ -84,6 +84,7 @@
         WHERE ar.account_id = #{accountId}
         ORDER BY a.created_time
                 DESC
+
     </select>
 
 </mapper>
