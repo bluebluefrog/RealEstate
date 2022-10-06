@@ -22,14 +22,23 @@ public class WatchListController extends BaseController{
     private WatchListService watchListService;
 
     @GetMapping("/getList")
-    public GraceJSONResult getWatchListByAccountId(HttpServletRequest request){
+    public GraceJSONResult getWatchListByAccountId(@RequestParam Integer page,@RequestParam Integer pageSize,HttpServletRequest request){
         Account account = getAccountFromSession(request);
 
         List<String> realEstateIdByAccountId = watchListService.getRealEstateIdByAccountId(account.getId());
 
-        Integer page = realEstateIdByAccountId.size() / 10;
+        if (page == null || page == 0) {
+            page = 1;
+        }
+        if (pageSize == null || pageSize == 0) {
+            pageSize = 10;
+        }
 
-        PagedGridResult pagedGridResult = propertyService.listAllProperty(page, 10, null, null, realEstateIdByAccountId);
+        if (realEstateIdByAccountId.size() == 0) {
+            realEstateIdByAccountId.add("");
+        }
+
+        PagedGridResult pagedGridResult = propertyService.listAllProperty(page, pageSize, null, null, realEstateIdByAccountId);
 
         return GraceJSONResult.ok(pagedGridResult);
     }

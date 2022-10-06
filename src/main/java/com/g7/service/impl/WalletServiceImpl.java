@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
+
 @Service
 public class WalletServiceImpl implements WalletService {
 
@@ -111,5 +113,14 @@ public class WalletServiceImpl implements WalletService {
         wallet.setFunds(charge);
 
         walletMapper.updateByPrimaryKey(wallet);
+    }
+
+    public List<Wallet> getWallet(String id) {
+        Example example = new Example(Wallet.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("accountId", id);
+        List<Wallet> wallets = walletMapper.selectByExample(example);
+
+        return wallets;
     }
 }

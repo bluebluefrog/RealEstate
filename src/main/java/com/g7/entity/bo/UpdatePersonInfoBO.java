@@ -21,5 +21,6 @@ public class UpdatePersonInfoBO {
     private String email;
     private Integer age;
     private String otherInfo;
+    private String address;
 
 }

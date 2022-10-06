@@ -26,10 +26,10 @@ public class PropertyController extends BaseController{
                                            @RequestParam Integer pageSize,
                                            @RequestParam String keyWord){
 
-        if (page == null) {
+        if (page == null || page == 0) {
             page = 1;
         }
-        if (pageSize == null) {
+        if (pageSize == null || pageSize == 0) {
             pageSize = 10;
         }
 

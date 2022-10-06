@@ -11,19 +11,22 @@ public class PageUtils {
                                                   Integer page, Integer pageSize) {
 
         int firstIndex = (page - 1) * pageSize;
+        if (firstIndex > list.size()) {
+            firstIndex = 0;
+        }
 
-        int lastIndex = (page - 1) * pageSize;
-
+        int lastIndex = firstIndex + pageSize;
 
         PagedGridResult gridResult = new PagedGridResult();
 
         gridResult.setPage(page);
-        gridResult.setRecords(pageSize);
+        gridResult.setRecords(list.size() > pageSize ? pageSize : list.size());
         gridResult.setTotal(list.size());
+
         try {
-            list.subList(firstIndex, lastIndex);
+            list.subList(firstIndex, lastIndex - 1);
         }catch(Exception e){
-            list.subList(firstIndex, list.size() - firstIndex);
+            list.subList(firstIndex, list.size());
         }
         gridResult.setRows(list);
         return gridResult;

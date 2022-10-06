@@ -2,14 +2,13 @@ package com.g7.controller;
 
 import com.g7.common.result.GraceJSONResult;
 import com.g7.entity.Account;
+import com.g7.entity.Wallet;
 import com.g7.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/wallet")
@@ -25,6 +24,15 @@ public class WalletController extends BaseController{
 
         walletService.addWallet(bankAccount,account.getId());
         return GraceJSONResult.ok();
+    }
+
+    @GetMapping("/getWallet")
+    public GraceJSONResult getWallet(HttpServletRequest request){
+        Account account = getAccountFromSession(request);
+
+        List<Wallet> wallets=walletService.getWallet(account.getId());
+
+        return GraceJSONResult.ok(wallets);
     }
 
     @PostMapping("/topUpWallet")

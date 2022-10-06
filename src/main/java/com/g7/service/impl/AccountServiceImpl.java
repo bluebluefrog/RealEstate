@@ -150,12 +150,16 @@ public class AccountServiceImpl implements AccountService {
         BeanUtils.copyProperties(updatePersonInfoBO, personInfo);
         personInfo.setId(personInfoId);
 
-        System.out.println(personInfo.getOtherInfo());
         System.out.println(personInfo.getId());
+        System.out.println(personInfo.getFirstName());
+        System.out.println(personInfo.getLastName());
+        System.out.println(personInfo.getPhone());
+        System.out.println(personInfo.getOtherInfo());
         System.out.println(personInfo.getAddress());
         System.out.println(personInfo.getSex());
         System.out.println(personInfo.getEmail());
         System.out.println(personInfo.getAge());
+        System.out.println(personInfo.getAddress());
 
 
         personInfoMapper.updateByPrimaryKeySelective(personInfo);

@@ -25,6 +25,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/account/logout")
                 .addPathPatterns("/account/updatePersonInfo")
                 .addPathPatterns("/account/avatar")
+                .addPathPatterns("/account//personInfo")
                 .addPathPatterns("/property/createProperty")
                 .addPathPatterns("/property/uploadPropertyPhoto")
                 .addPathPatterns("/watchList/getList")
@@ -33,7 +34,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/wallet/addWallet")
                 .addPathPatterns("/wallet/topUpWallet")
                 .addPathPatterns("/wallet/deleteWallet")
-                .addPathPatterns("/wallet/chargeWallet");
+                .addPathPatterns("/wallet/chargeWallet")
+                .addPathPatterns("/wallet/getWallet");
 
 
     }
