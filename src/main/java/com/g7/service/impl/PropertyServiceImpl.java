@@ -13,8 +13,6 @@ import com.g7.mapper.RealEstateMapper;
 import com.g7.mapper.custom.RealEstateMapperCustom;
 import com.g7.service.AuctionService;
 import com.g7.service.PropertyService;
-import com.github.pagehelper.PageHelper;
-import org.apache.commons.lang3.StringUtils;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,6 +138,36 @@ public class PropertyServiceImpl implements PropertyService {
 
             position++;
         }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void uploadPropertyImg(String imgPath, String propertyId) {
+
+        RealEstateImg img;
+        int position = 1;
+        img = new RealEstateImg();
+        img.setId(sid.nextShort());
+        img.setRealEstateId(propertyId);
+        img.setPositionSort(position);
+            if (position == 1) {
+                img.setIsMain(1);
+
+            } else {
+                img.setIsMain(0);
+            }
+            img.setUrl(imgPath);
+
+            realEstateImgMapper.insert(img);
+
+    }
+
+    @Override
+    public List<RealEstateVO> listAllNoAuctionProperty(String id) {
+
+        List<RealEstateVO> realEstateVOS = realEstateMapperCustom.listAllNoAuctionProperty(id);
+
+        return realEstateVOS;
     }
 
 }

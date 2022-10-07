@@ -13,4 +13,6 @@ public interface RealEstateMapperCustom {
     List<RealEstateVO> listAllProperty(@Param("paramMap")Map<String, Object> map);
 
     RealEstateVO infoProperty(String realEstateId);
+
+    List<RealEstateVO> listAllNoAuctionProperty(String id);
 }

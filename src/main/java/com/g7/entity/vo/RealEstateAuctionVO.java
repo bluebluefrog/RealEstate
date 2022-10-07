@@ -12,5 +12,6 @@ import lombok.ToString;
 public class RealEstateAuctionVO {
 
     private RealEstateVO realEstateVO;
+
     private AuctionInfoVO auctionInfoVO;
 }

@@ -27,7 +27,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/account/avatar")
                 .addPathPatterns("/account//personInfo")
                 .addPathPatterns("/property/createProperty")
-                .addPathPatterns("/property/uploadPropertyPhoto")
+                .addPathPatterns("/property/listNoAuction")
                 .addPathPatterns("/watchList/getList")
                 .addPathPatterns("/watchList/addList")
                 .addPathPatterns("/watchList/deleteList")

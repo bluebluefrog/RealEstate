@@ -2,6 +2,7 @@ package com.g7.controller;
 
 import com.g7.common.result.GraceJSONResult;
 import com.g7.common.PagedGridResult;
+import com.g7.entity.Account;
 import com.g7.entity.RealEstate;
 import com.g7.entity.bo.RealEstateBO;
 import com.g7.entity.vo.RealEstateAuctionVO;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -38,6 +40,16 @@ public class PropertyController extends BaseController{
         return GraceJSONResult.ok(pagedGridResult);
     }
 
+    @GetMapping("/listNoAuction")
+    public GraceJSONResult listAllNoAuctionProperty(HttpServletRequest request){
+
+        Account account = getAccountFromSession(request);
+
+        List<RealEstateVO> realEstateVOList= propertyService.listAllNoAuctionProperty(account.getId());
+
+        return GraceJSONResult.ok(realEstateVOList);
+    }
+
     @GetMapping("/info")
     public GraceJSONResult infoProperty(@RequestParam String realEstateId){
 
@@ -55,11 +67,18 @@ public class PropertyController extends BaseController{
     }
 
     @PostMapping("/uploadPropertyPhoto")
-    public GraceJSONResult uploadPropertyPhoto(MultipartFile[] multipartFiles, @RequestParam String propertyId) {
-        List<String> imgPathList = uploadImage(multipartFiles);
-        propertyService.uploadPropertyImgs(imgPathList, propertyId);
+    public GraceJSONResult uploadPropertyPhoto(@RequestParam(value = "files")MultipartFile multipartFile, @RequestParam String propertyId) {
 
-        return GraceJSONResult.ok(imgPathList);
+        System.out.println(multipartFile.getOriginalFilename());
+
+
+        String imgPath = uploadImage(multipartFile);
+        propertyService.uploadPropertyImg(imgPath, propertyId);
+
+//        List<String> imgPathList = uploadImage(multipartFiles);
+//        propertyService.uploadPropertyImgs(imgPathList, propertyId);
+
+        return GraceJSONResult.ok(imgPath);
     }
 
 }

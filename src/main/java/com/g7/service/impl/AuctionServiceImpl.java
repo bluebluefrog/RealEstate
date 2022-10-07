@@ -9,6 +9,7 @@ import com.g7.entity.bo.AuctionBO;
 import com.g7.entity.vo.AuctionInfoVO;
 import com.g7.mapper.AuctionMapper;
 import com.g7.mapper.AuctionRecordMapper;
+import com.g7.mapper.RealEstateMapper;
 import com.g7.mapper.custom.AuctionMapperCustom;
 import com.g7.service.AuctionService;
 import com.g7.service.PropertyService;
@@ -16,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,9 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Autowired
     private AuctionMapper auctionMapper;
+
+    @Autowired
+    private RealEstateMapper realEstateMapper;
 
     @Autowired
     private AuctionRecordMapper auctionRecordMapper;
@@ -58,7 +63,7 @@ public class AuctionServiceImpl implements AuctionService {
             GraceException.display(ResponseStatusEnum.AUCTION_EXIST);
         }
 
-        if (auctionBO.getAuctionDate().compareTo(auctionBO.getAuctionDuration()) > 0) {
+        if (auctionBO.getAuctionDate().compareTo(auctionBO.getAuctionDuration()) >= 0) {
             GraceException.display(ResponseStatusEnum.AUCTION_DATE_WRONG);
         }
 
@@ -143,7 +148,16 @@ public class AuctionServiceImpl implements AuctionService {
             GraceException.display(ResponseStatusEnum.AUCTION_NO_EXIST);
         }
 
-        if (new Date().compareTo(auction.getAuctionDuration()) > 0) {
+        if (new Date().compareTo(auction.getAuctionDuration()) >= 0) {
+            Example example = new Example(RealEstate.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("id", auction.getRealEstateId());
+            RealEstate realEstate = realEstateMapper.selectOneByExample(example);
+            if (realEstate.getOnAuction() != 0) {
+                realEstate.setOnAuction(0);
+                realEstateMapper.updateByPrimaryKeySelective(realEstate);
+            }
+
             GraceException.display(ResponseStatusEnum.AUCTION_EXPIRE);
         }
 
@@ -206,5 +220,28 @@ public class AuctionServiceImpl implements AuctionService {
         List<AuctionInfoVO> auctionInfoVO = auctionMapperCustom.listAllAuctionByAccountId(accountId);
 
         return auctionInfoVO;
+    }
+
+
+
+    @Scheduled(cron ="0 0 1 * * ?")
+    @Override
+    public void checkAllAuctionFinish() {
+
+        List<Auction> auctions = auctionMapper.selectAll();
+
+        for (Auction auction : auctions
+        ) {
+            if (new Date().compareTo(auction.getAuctionDuration()) >= 0) {
+                Example example = new Example(RealEstate.class);
+                Example.Criteria criteria = example.createCriteria();
+                criteria.andEqualTo("id", auction.getRealEstateId());
+                RealEstate realEstate = realEstateMapper.selectOneByExample(example);
+                if (realEstate.getOnAuction() != 0) {
+                    realEstate.setOnAuction(0);
+                    realEstateMapper.updateByPrimaryKeySelective(realEstate);
+                }
+            }
+        }
     }
 }

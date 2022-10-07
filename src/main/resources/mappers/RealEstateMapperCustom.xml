@@ -65,6 +65,38 @@
                 DESC
     </select>
 
+    <select id="listAllNoAuctionProperty" parameterType="map" resultMap="RealEstateVO">
+        SELECT
+            re.id as real_estate_id,
+            re.real_estate_type,
+            re.land_area,
+            re.real_estate_area,
+            re.bedrooms,
+            re.bathrooms,
+            re.garage,
+            re.street_address,
+            re.suburb,
+            re.agent_id,
+            re.on_auction,
+            re.title,
+            rei.id as real_estate_img_id,
+            rei.real_estate_id,
+            rei.position_sort,
+            rei.is_main,
+            rei.url
+        FROM real_estate re
+                 LEFT JOIN
+             real_estate_img rei
+             ON
+                 re.id = rei.real_estate_id
+        WHERE
+            re.on_auction = 0
+        AND
+            re.agent_id=#{id}
+        ORDER BY re.created_time
+                DESC
+    </select>
+
     <select id="infoProperty" resultMap="RealEstateVO">
         SELECT
             re.id as real_estate_id,

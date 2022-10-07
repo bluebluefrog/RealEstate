@@ -6,6 +6,8 @@ import com.g7.entity.RealEstate;
 import com.g7.entity.bo.RealEstateBO;
 import com.g7.entity.vo.RealEstateAuctionVO;
 import com.g7.entity.vo.RealEstateVO;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,4 +26,9 @@ public interface PropertyService {
     RealEstate createProperty(RealEstateBO realEstateBO);
 
     void uploadPropertyImgs(List<String> imgPathList, String propertyId);
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    void uploadPropertyImg(String imgPath, String propertyId);
+
+    List<RealEstateVO> listAllNoAuctionProperty(String id);
 }

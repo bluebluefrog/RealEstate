@@ -24,4 +24,6 @@ public interface AuctionService {
     AuctionInfoVO infoAuction(String realEstateId);
 
     List<AuctionInfoVO> infoAuctionByAccountId(String accountId);
+
+    void checkAllAuctionFinish();
 }
