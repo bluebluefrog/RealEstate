@@ -1,10 +1,15 @@
 package com.g7.controller;
 
+import com.g7.common.exception.GraceException;
 import com.g7.common.result.GraceJSONResult;
+import com.g7.common.result.ResponseStatusEnum;
 import com.g7.entity.Account;
+import com.g7.entity.PersonInfo;
+import com.g7.entity.bo.UpdatePersonInfoBO;
 import com.g7.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,6 +67,44 @@ public class AccountController extends BaseController{
         session.setAttribute("loginAccount",account);
 
         return GraceJSONResult.ok(account);
+    }
+
+    @GetMapping("/personInfo")
+    public GraceJSONResult personInfo(HttpServletRequest request){
+        Account account = getAccountFromSession(request);
+        PersonInfo personInfo = accountService.personInfo(account);
+
+        return GraceJSONResult.ok(personInfo);
+    }
+
+    @PostMapping("/updatePersonInfo")
+    public GraceJSONResult personInfo(@RequestBody UpdatePersonInfoBO updatePersonInfoBO,HttpServletRequest request){
+        Account account = getAccountFromSession(request);
+        if (updatePersonInfoBO == null) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
+        PersonInfo personInfo=accountService.updatePersonInfo(updatePersonInfoBO,account.getPersonInfoId());
+
+        return GraceJSONResult.ok(personInfo);
+    }
+
+    @PostMapping("/avatar")
+    public GraceJSONResult avatar(MultipartFile multipartFile, HttpServletRequest request) {
+        Account account = getAccountFromSession(request);
+
+        String imgPath = uploadImage(multipartFile);
+        accountService.avatar(imgPath,account.getId());
+
+        return GraceJSONResult.ok();
+    }
+
+
+    @GetMapping("/logout")
+    public GraceJSONResult logout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.removeAttribute("loginAccount");
+
+        return GraceJSONResult.ok();
     }
 
 }

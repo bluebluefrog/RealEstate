@@ -5,12 +5,14 @@ import com.g7.entity.Account;
 import com.g7.entity.Auction;
 import com.g7.entity.AuctionRecord;
 import com.g7.entity.bo.AuctionBO;
+import com.g7.entity.vo.AuctionInfoVO;
 import com.g7.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/auction")
@@ -35,5 +37,14 @@ public class AuctionController extends BaseController{
         AuctionRecord auctionRecord = auctionService.createAuctionRecord(account.getId(), auctionId, bidPrice);
 
         return GraceJSONResult.ok(auctionRecord);
+    }
+
+
+    @GetMapping("/getAuctionInfo")
+    public GraceJSONResult getAuctionInfo(HttpServletRequest request){
+        Account account = getAccountFromSession(request);
+        List<AuctionInfoVO> auctionInfoVO = auctionService.infoAuctionByAccountId(account.getId());
+
+        return GraceJSONResult.ok(auctionInfoVO);
     }
 }

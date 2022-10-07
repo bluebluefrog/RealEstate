@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.g7.mapper.custom.AuctionMapperCustom">
+
+    <resultMap id="AuctionInfoVO" type="com.g7.entity.vo.AuctionInfoVO">
+        <id column="auction_private_id" property="id"/>
+        <result column="auction_date" property="auctionDate"/>
+        <result column="auction_duration" property="auctionDuration"/>
+        <result column="starting_bid" property="startingBid"/>
+        <result column="highest_auction_record_id" property="highestAuctionRecordId"/>
+        <result column="auction_title" property="auctionTitle"/>
+        <result column="auction_detail" property="auctionDetail"/>
+        <result column="auction_announcement" property="auctionAnnouncement"/>
+        <result column="real_estate_id" property="realEstateId"/>
+        <result column="auction_sponsor_id" property="auctionSponsorId"/>
+        <result column="security_deposit" property="securityDeposit"/>
+        <result column="appraised_value" property="appraisedValue"/>
+
+        <collection property="auctionRecordList" ofType="com.g7.entity.AuctionRecord">
+            <id column="auction_record_private_id" property="id"/>
+            <result column="status" property="status"/>
+            <result column="account_id" property="accountId"/>
+            <result column="auction_id" property="auctionId"/>
+            <result column="bid_price" property="bidPrice"/>
+            <result column="bid_time" property="bidTime"/>
+        </collection>
+    </resultMap>
+
+    <select id="infoAuctionByRealEstateId" resultMap="AuctionInfoVO">
+        SELECT
+            a.id as auction_private_id,
+            ar.id as auction_record_private_id,
+            a.auction_date,
+            a.auction_duration,
+            a.starting_bid,
+            a.highest_auction_record_id,
+            a.auction_title,
+            a.auction_detail,
+            a.auction_announcement,
+            a.real_estate_id,
+            a.auction_sponsor_id,
+            a.security_deposit,
+            a.appraised_value,
+            ar.status,
+            ar.account_id,
+            ar.auction_id,
+            ar.bid_price,
+            ar.bid_time
+        FROM auction a
+                 LEFT JOIN
+             auction_record ar
+             ON
+                 a.id = ar.auction_id
+        WHERE a.real_estate_id = #{realEstateId}
+        ORDER BY ar.created_time
+                DESC
+    </select>
+
+    <select id="listAllAuctionByAccountId" resultMap="AuctionInfoVO">
+        SELECT
+            a.id as auction_private_id,
+            ar.id as auction_record_private_id,
+            a.auction_date,
+            a.auction_duration,
+            a.starting_bid,
+            a.highest_auction_record_id,
+            a.auction_title,
+            a.auction_detail,
+            a.auction_announcement,
+            a.real_estate_id,
+            a.auction_sponsor_id,
+            a.security_deposit,
+            a.appraised_value,
+            ar.status,
+            ar.account_id,
+            ar.auction_id,
+            ar.bid_price,
+            ar.bid_time
+        FROM auction a
+                 LEFT JOIN
+             auction_record ar
+             ON
+                 a.id = ar.auction_id
+        WHERE ar.account_id = #{accountId}
+        ORDER BY a.created_time
+                DESC
+
+    </select>
+
+</mapper>

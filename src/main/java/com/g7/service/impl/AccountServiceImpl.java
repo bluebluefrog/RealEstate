@@ -5,21 +5,22 @@ import com.g7.common.exception.GraceException;
 import com.g7.common.result.ResponseStatusEnum;
 import com.g7.entity.Account;
 import com.g7.entity.PersonInfo;
+import com.g7.entity.bo.UpdatePersonInfoBO;
 import com.g7.entity.enums.Sex;
 import com.g7.entity.enums.YesOrNo;
 import com.g7.mapper.AccountMapper;
 import com.g7.mapper.PersonInfoMapper;
 import com.g7.service.AccountService;
+import org.apache.commons.lang3.StringUtils;
 import org.n3r.idworker.Sid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import javax.annotation.Resource;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -38,6 +39,10 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Account register(String username, String password) {
+
+        if (!StringUtils.isNotBlank(username)||!StringUtils.isNotBlank(password)) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
 
         Account accountExist = checkUsername(username);
         if (accountExist != null) {
@@ -85,6 +90,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account login(String username, String password) {
+
+        if (!StringUtils.isNotBlank(username)||!StringUtils.isNotBlank(password)) {
+            GraceException.display(ResponseStatusEnum.PARAM_EMPTY);
+        }
+
         //select *
         //from account
         //where username = @username
@@ -119,5 +129,49 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountMapper.selectOneByExample(example);
 
         return account;
+    }
+
+    @Override
+    public PersonInfo personInfo(Account account) {
+
+        Example personInfoExample = new Example(PersonInfo.class);
+        Example.Criteria personInfoCriteria = personInfoExample.createCriteria();
+        personInfoCriteria.andEqualTo("id", account.getPersonInfoId());
+        PersonInfo personInfo = personInfoMapper.selectOneByExample(personInfoExample);
+
+        return personInfo;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public PersonInfo updatePersonInfo(UpdatePersonInfoBO updatePersonInfoBO, String personInfoId) {
+
+        PersonInfo personInfo = new PersonInfo();
+        BeanUtils.copyProperties(updatePersonInfoBO, personInfo);
+        personInfo.setId(personInfoId);
+
+        System.out.println(personInfo.getId());
+        System.out.println(personInfo.getFirstName());
+        System.out.println(personInfo.getLastName());
+        System.out.println(personInfo.getPhone());
+        System.out.println(personInfo.getOtherInfo());
+        System.out.println(personInfo.getAddress());
+        System.out.println(personInfo.getSex());
+        System.out.println(personInfo.getEmail());
+        System.out.println(personInfo.getAge());
+        System.out.println(personInfo.getAddress());
+
+
+        personInfoMapper.updateByPrimaryKeySelective(personInfo);
+
+        return personInfo;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void avatar(String imgPath, String accountId) {
+        Account account = accountMapper.selectByPrimaryKey(accountId);
+        account.setAvatar(imgPath);
+        accountMapper.updateByPrimaryKey(account);
     }
 }

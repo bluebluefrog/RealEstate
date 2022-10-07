@@ -1,0 +1,46 @@
+{
+  "RECORDS": [
+    {
+      "id": "2209200C04XRHHM8",
+      "first_name": "jingbin",
+      "last_name": "wang",
+      "phone": 426390626,
+      "sex": 0,
+      "birthday": "1/1/2000",
+      "email": "jingbin.wang.warren@gmail.com",
+      "address": "NorthSydney",
+      "age": 20,
+      "other_info": "hi i am warren",
+      "created_time": "6/10/2022 23:28:55",
+      "update_time": "6/10/2022 23:28:55"
+    },
+    {
+      "id": "221006D5BMBYW2K4",
+      "first_name": "unknow",
+      "last_name": "unknow",
+      "phone": 0,
+      "sex": 2,
+      "birthday": "7/10/2022",
+      "email": "unknow",
+      "address": "unknow",
+      "age": 99,
+      "other_info": "unknow",
+      "created_time": "8/10/2022 01:20:27",
+      "update_time": "8/10/2022 01:20:27"
+    },
+    {
+      "id": "221007GWWM02C84H",
+      "first_name": "phat",
+      "last_name": "gia",
+      "phone": 1234567,
+      "sex": 1,
+      "birthday": "1/1/2000",
+      "email": "312312@qq.com",
+      "address": "my address",
+      "age": 20,
+      "other_info": "my info",
+      "created_time": "7/10/2022 22:30:25",
+      "update_time": "7/10/2022 22:30:25"
+    }
+  ]
+}

@@ -13,13 +13,35 @@ public enum ResponseStatusEnum {
     // 50x
     UN_LOGIN(501,false,"Please login before continuing!"),
     TICKET_INVALID(502,false,"The session is invalid, please log in again!"),
-    NO_AUTH(503,false,"You have insufficient permissions to continue the operation!"),
+    NO_AUTH(503, false, "You have insufficient permissions to continue the operation!"),
     USER_NOT_EXIST_ERROR(516,false,"User does not exist!"),
     USERNAME_EXIST(517,false,"username already exists!"),
     LOGIN_FAIL(518,false,"Wrong password!"),
     PROPERTY_NO_EXIST(519,false,"property does not exist!"),
     AUCTION_NO_EXIST(520,false,"auction does not exist!"),
     AUCTION_FAIL_BID_PRICE_LOW(520,false,"auction fail bid price lower then previous!"),
+
+    NEED_OVER_START_BID(521,false,"your bid is not over start bid!"),
+
+    PARAM_EMPTY(522,false,"param is empty!"),
+
+    AUCTION_EXIST(523,false,"auction exist!"),
+
+    BID_MARKUP_NEED_REACH_THE_STANDARD(524,false,"bid markup need over standard!"),
+
+    AUCTION_EXPIRE(525,false,"auction expire!"),
+
+    AUCTION_DATE_WRONG(525,false,"auction date or duration is wrong!"),
+
+    AUCTION_BID_WRONG(526,false,"auction start bid or markup is wrong!"),
+
+    NO_WATCH_LIST(527,false,"no watch list!"),
+
+    WATCH_LIST_EXIST(527,false,"watch list exist!"),
+
+    FUND_NOT_ENOUGH(528,false,"fund not enough!"),
+
+    IMG_UPLOAD_FAIL(529,false,"img upload fail!"),
     FILE_MAX_SIZE_2MB_ERROR(5132,false,"Only supports uploading pictures under 2MB!"),
 
 
