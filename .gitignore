@@ -45,3 +45,5 @@ gen/
 logs/
 log
 temp/
+
+upload/

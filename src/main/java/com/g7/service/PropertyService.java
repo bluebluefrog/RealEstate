@@ -23,11 +23,10 @@ public interface PropertyService {
 
     RealEstateAuctionVO infoRealEstateAuction(String realEstateId);
 
-    RealEstate createProperty(RealEstateBO realEstateBO);
+    RealEstate createProperty(RealEstateBO realEstateBO, String accountId);
 
     void uploadPropertyImgs(List<String> imgPathList, String propertyId);
 
-    @Transactional(propagation = Propagation.REQUIRED)
     void uploadPropertyImg(String imgPath, String propertyId);
 
     List<RealEstateVO> listAllNoAuctionProperty(String id);

@@ -102,13 +102,13 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public RealEstate createProperty(RealEstateBO realEstateBO) {
+    public RealEstate createProperty(RealEstateBO realEstateBO,String accountId) {
 
         RealEstate realEstate = new RealEstate();
         BeanUtils.copyProperties(realEstateBO, realEstate);
         String realEstateId = sid.nextShort();
         realEstate.setId(realEstateId);
-        realEstate.setAgentId("");
+        realEstate.setAgentId(accountId);
         realEstate.setOnAuction(0);
 
         realEstateMapper.insert(realEstate);

@@ -59,9 +59,10 @@ public class PropertyController extends BaseController{
     }
 
     @PostMapping("/createProperty")
-    public GraceJSONResult createProperty(@RequestBody RealEstateBO realEstateBO){
+    public GraceJSONResult createProperty(@RequestBody RealEstateBO realEstateBO,HttpServletRequest request){
+        Account account = getAccountFromSession(request);
 
-        RealEstate realEstate = propertyService.createProperty(realEstateBO);
+        RealEstate realEstate = propertyService.createProperty(realEstateBO,account.getId());
 
         return GraceJSONResult.ok(realEstate);
     }
