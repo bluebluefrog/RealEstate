@@ -75,4 +75,29 @@ public class BaseController {
         }
         return imgsPath;
     }
+
+    public void deleteImages(List<String> imgPath){
+
+        for (String path : imgPath) {
+            int last = path.lastIndexOf("/");
+            String pathSub = path.substring(last + 1);
+            try {
+                File file = new File(fileUploadPath + pathSub);
+                file.delete();
+            } catch (Exception e) {
+                GraceException.display(ResponseStatusEnum.FAILED);
+            }
+        }
+    }
+
+    public void deleteImage(String imgPath){
+            int last = imgPath.lastIndexOf("/");
+            String pathSub = imgPath.substring(last + 1);
+            try {
+                File file = new File(fileUploadPath + pathSub);
+                file.delete();
+            } catch (Exception e) {
+                GraceException.display(ResponseStatusEnum.FAILED);
+            }
+    }
 }

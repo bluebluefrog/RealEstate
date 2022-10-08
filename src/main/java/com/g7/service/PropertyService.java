@@ -30,4 +30,8 @@ public interface PropertyService {
     void uploadPropertyImg(String imgPath, String propertyId);
 
     List<RealEstateVO> listAllNoAuctionProperty(String id);
+
+    List<String> deleteProperty(String propertyId, String id);
+
+    void removeImg(String path);
 }

@@ -67,6 +67,26 @@ public class PropertyController extends BaseController{
         return GraceJSONResult.ok(realEstate);
     }
 
+
+    @PostMapping("/deleteProperty")
+    public GraceJSONResult deleteProperty(@RequestParam String propertyId,HttpServletRequest request){
+        Account account = getAccountFromSession(request);
+
+        List<String> imgPaths = propertyService.deleteProperty(propertyId, account.getId());
+        if (imgPaths.size() > 0) {
+            deleteImages(imgPaths);
+        }
+
+        return GraceJSONResult.ok();
+    }
+
+    @PostMapping("/removeImg")
+    public GraceJSONResult removeImg(@RequestParam String path){
+        propertyService.removeImg(path);
+        deleteImage(path);
+        return GraceJSONResult.ok(path);
+    }
+
     @PostMapping("/uploadPropertyPhoto")
     public GraceJSONResult uploadPropertyPhoto(@RequestParam(value = "files")MultipartFile multipartFile, @RequestParam String propertyId) {
 

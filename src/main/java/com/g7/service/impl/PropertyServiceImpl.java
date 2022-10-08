@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -168,6 +169,46 @@ public class PropertyServiceImpl implements PropertyService {
         List<RealEstateVO> realEstateVOS = realEstateMapperCustom.listAllNoAuctionProperty(id);
 
         return realEstateVOS;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public List<String> deleteProperty(String propertyId, String id) {
+
+        Example realEstateExample = new Example(RealEstate.class);
+        Example realEstateImgExample = new Example(RealEstateImg.class);
+
+        Example.Criteria realEstateCriteria = realEstateExample.createCriteria();
+        realEstateCriteria.andEqualTo("id", propertyId);
+        realEstateCriteria.andEqualTo("agentId", id);
+
+        int i = realEstateMapper.deleteByExample(realEstateExample);
+
+        List<String> imgPath = new ArrayList<>();
+        if (i > 0) {
+            Example.Criteria realEstateImgCriteria = realEstateImgExample.createCriteria();
+            realEstateImgCriteria.andEqualTo("realEstateId", propertyId);
+            List<RealEstateImg> realEstateImgs = realEstateImgMapper.selectByExample(realEstateImgExample);
+            for (RealEstateImg img:realEstateImgs) {
+                if(img.getUrl().contains("http://127.0.0.1:8080/images/")) {
+                    System.out.println(img.getUrl());
+                    imgPath.add(img.getUrl());
+                }
+            }
+            realEstateImgMapper.deleteByExample(realEstateImgExample);
+        }
+        return imgPath;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void removeImg(String path) {
+
+        Example realEstateImgExample = new Example(RealEstateImg.class);
+        Example.Criteria realEstateImgCriteria = realEstateImgExample.createCriteria();
+
+        realEstateImgCriteria.andEqualTo("url", path);
+        realEstateImgMapper.deleteByExample(realEstateImgExample);
     }
 
 }
