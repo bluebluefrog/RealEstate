@@ -21,10 +21,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PropertyServiceImpl implements PropertyService {
@@ -112,6 +109,9 @@ public class PropertyServiceImpl implements PropertyService {
         realEstate.setAgentId(accountId);
         realEstate.setOnAuction(0);
 
+        realEstate.setCreatedTime(new Date());
+        realEstate.setUpdatedTime(new Date());
+
         realEstateMapper.insert(realEstate);
 
         return realEstate;
@@ -128,6 +128,8 @@ public class PropertyServiceImpl implements PropertyService {
             img.setId(sid.nextShort());
             img.setRealEstateId(propertyId);
             img.setPositionSort(position);
+            img.setCreatedTime(new Date());
+            img.setUpdatedTime(new Date());
             if (position == 1) {
                 img.setIsMain(1);
             } else {
@@ -151,6 +153,8 @@ public class PropertyServiceImpl implements PropertyService {
         img.setId(sid.nextShort());
         img.setRealEstateId(propertyId);
         img.setPositionSort(position);
+        img.setCreatedTime(new Date());
+        img.setUpdatedTime(new Date());
             if (position == 1) {
                 img.setIsMain(1);
 

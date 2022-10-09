@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -66,6 +67,8 @@ public class WatchListServiceImpl implements WatchListService {
         newWatchList.setId(sid.nextShort());
         newWatchList.setAccountId(accountId);
         newWatchList.setRealEstateId(realEstateId);
+        newWatchList.setCreatedTime(new Date());
+        newWatchList.setUpdatedTime(new Date());
 
         watchListMapper.insert(newWatchList);
 

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,6 +42,8 @@ public class WalletServiceImpl implements WalletService {
         wallet.setAccountId(accountId);
         wallet.setBankAccount(bankAccount);
         wallet.setFunds(0l);
+        wallet.setCreatedTime(new Date());
+        wallet.setUpdatedTime(new Date());
 
         walletMapper.insert(wallet);
 

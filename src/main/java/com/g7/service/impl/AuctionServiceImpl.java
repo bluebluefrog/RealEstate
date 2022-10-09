@@ -77,6 +77,8 @@ public class AuctionServiceImpl implements AuctionService {
         BeanUtils.copyProperties(auctionBO, auction);
         auction.setHighestAuctionRecordId("0");
         auction.setAuctionSponsorId(sponsorId);
+        auction.setCreatedTime(new Date());
+        auction.setUpdatedTime(new Date());
 
         auctionMapper.insert(auction);
 
@@ -190,6 +192,8 @@ public class AuctionServiceImpl implements AuctionService {
         auctionRecord.setStatus(1);
         auctionRecord.setBidPrice(bidPrice);
         auctionRecord.setBidTime(new Date());
+        auctionRecord.setCreatedTime(new Date());
+        auctionRecord.setUpdatedTime(new Date());
 
         auctionRecordMapper.insert(auctionRecord);
         auctionRecord.setId(auctionRecordId);

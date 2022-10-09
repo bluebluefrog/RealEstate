@@ -62,6 +62,9 @@ public class AccountServiceImpl implements AccountService {
         personInfo.setPhone(0);
         personInfo.setSex(Sex.secret.type);
         personInfo.setOtherInfo("unknow");
+        personInfo.setCreatedTime(new Date());
+        personInfo.setUpdateTime(new Date());
+
 
         personInfoMapper.insert(personInfo);
 
@@ -72,6 +75,9 @@ public class AccountServiceImpl implements AccountService {
         String accountId = sid.nextShort();
         account.setId(accountId);
         account.setUsername(username);
+
+        account.setCreatedTime(new Date());
+        account.setUpdatedTime(new Date());
 
         try {
             account.setPassword(MD5Utils.getMD5Str(password));
