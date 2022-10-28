@@ -8,9 +8,9 @@ server:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/g7-re?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+        url: jdbc:mysql://49.51.97.143:3306/g7-re?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
         username: root
-        password: abc123456
+        password: g7re123
 
 
 # mybatis config

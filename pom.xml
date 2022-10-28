@@ -14,6 +14,8 @@
         <relativePath />
     </parent>
 
+    <packaging>jar</packaging>
+
     <dependencies>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -116,6 +118,16 @@
         </dependency>
 
 </dependencies>
+
+    <build>
+        <finalName>g7-re</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

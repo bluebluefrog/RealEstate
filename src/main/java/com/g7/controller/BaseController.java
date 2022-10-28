@@ -22,7 +22,7 @@ public class BaseController {
 
     public static String fileUploadPath = System.getProperty("user.dir") + "/src/main/upload/";
 
-    public static String imgBaseUrl = "http://warrentest.natapp1.cc/images/";
+    public static String imgBaseUrl = "http://49.51.97.143:8080/images/";
 
     public Account getAccountFromSession(HttpServletRequest request){
         HttpSession session = request.getSession();
