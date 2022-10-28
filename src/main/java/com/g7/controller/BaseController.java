@@ -22,6 +22,8 @@ public class BaseController {
 
     public static String fileUploadPath = System.getProperty("user.dir") + "/src/main/upload/";
 
+    public static String imgBaseUrl = "http://warrentest.natapp1.cc/images/";
+
     public Account getAccountFromSession(HttpServletRequest request){
         HttpSession session = request.getSession();
 
@@ -47,7 +49,7 @@ public class BaseController {
             GraceException.display(ResponseStatusEnum.IMG_UPLOAD_FAIL);
         }
 
-        return "http://127.0.0.1:8080/images/" + uuid + fileSuffix;
+        return imgBaseUrl + uuid + fileSuffix;
     }
 
     public List<String> uploadImage(MultipartFile[] multipartFiles){
@@ -71,7 +73,7 @@ public class BaseController {
             } catch (IOException e) {
                 GraceException.display(ResponseStatusEnum.IMG_UPLOAD_FAIL);
             }
-            imgsPath.add("http://127.0.0.1:8080/images/" + uuid + fileSuffix);
+            imgsPath.add(imgBaseUrl + uuid + fileSuffix);
         }
         return imgsPath;
     }
